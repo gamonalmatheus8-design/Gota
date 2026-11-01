@@ -127,11 +127,10 @@ const iconPlus = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v12M
                   {img ? <Image src={img} alt="" width={120} height={120} /> : <span class="script">{s.nome.charAt(0)}</span>}
                 </span>
                 <div class="row-text">
-                  <h3><span class="script">{s.nome}</span>{s.selo && <span class="selo">{s.selo}</span>}</h3>
+                  <h3><span class="script">{s.nome}</span>{s.selo && <span class="selo">{s.selo}</span>}<span class="row-price">R$ 14</span></h3>
                   <p>{s.descricao}</p>
                 </div>
                 <div class="row-buy">
-                  <span class="row-price">R$ 14</span>
                   <div class="step">
                     <button type="button" class="step-less" aria-label={`Tirar um ${s.nome}`} set:html={iconMinus}></button>
                     <output aria-live="polite" aria-label={`${s.nome} na caixa`}>0</output>

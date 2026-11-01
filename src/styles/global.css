@@ -131,7 +131,8 @@ h1 {
 }
 .chip { flex: 0 0 auto; padding: 5px; gap: 0; }
 .chip span { max-width: 0; overflow: hidden; white-space: nowrap; transition: max-width .45s var(--ease), margin .45s var(--ease); }
-.chip.on span, .chip:hover span, .chip:focus-visible span { max-width: 160px; margin: 0 10px 0 10px; }
+.chip.on span, .chip:focus-visible span { max-width: 160px; margin: 0 10px 0 10px; }
+@media (hover: hover) { .chip:hover span { max-width: 160px; margin: 0 10px 0 10px; } }
 .chip img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; }
 .chip:hover { background: rgba(43,24,16,.12); color: var(--choco); }
 .chip.on { background: var(--choco); color: var(--paper); }
@@ -164,7 +165,8 @@ h1 {
 .row-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .row-thumb .script { font-size: 40px; color: var(--butter); line-height: 1; }
 .row h3 { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 14px; font-weight: 400; }
-.row h3::after { content: ""; flex: 1 1 40px; align-self: center; border-bottom: 2px dotted rgba(239,227,200,.28); margin-top: 14px; }
+.row h3::after { content: ""; order: 2; flex: 1 1 40px; align-self: center; border-bottom: 2px dotted rgba(239,227,200,.28); margin-top: 14px; }
+.row h3 .row-price { order: 3; font-family: "Albert Sans", sans-serif; }
 .deals { margin-top: 48px; border: 1px solid rgba(239,227,200,.25); border-radius: 12px; padding: 26px 30px; max-width: 560px; }
 .deals h3 { font-size: 52px; line-height: 1; color: var(--butter); margin-bottom: 10px; font-weight: 400; }
 .deals ul { list-style: none; }
@@ -287,7 +289,7 @@ h1 {
   .chips { flex-wrap: nowrap; gap: 6px; }
   .chip { padding: 4px; }
   .chip img { width: 40px; height: 40px; }
-  .chip.on span, .chip:hover span { margin: 0 8px; }
+  .chip.on span { margin: 0 8px; }
   h1 { margin: 12px 0 16px; }
   .actions { margin-top: 24px; }
   .actions .btn { flex: 1 1 auto; }
