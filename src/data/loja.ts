@@ -32,12 +32,14 @@ export type Sabor = {
 };
 
 export const sabores: Sabor[] = [
-  { nome: 'Tradicional', selo: 'O clássico', descricao: 'Massa de baunilha com muita gota de chocolate.', foto: 'tradicional', fotoPosicao: '50% 30%' },
-  { nome: 'Nutella', selo: 'Queridinho de muitos', descricao: 'Massa de baunilha, gota de chocolate e recheio de Nutella.', foto: 'nutella' },
-  { nome: 'Kinder Bueno', selo: 'Um sucesso', descricao: 'Chocolate branco e ao leite, recheio de Kinder com avelã torrada.', foto: 'kinder-bueno' },
-  { nome: 'Pistache', selo: 'Trending', descricao: 'Farofa de pistache, chocolate branco e ganache de pistache torrado.', foto: 'pistache', fotoPosicao: '50% 100%' },
-  { nome: 'Red Velvet', selo: 'Atemporal', descricao: 'Chocolate branco e recheio de Ninho caramelizado com cream cheese.', foto: 'red-velvet' },
-  { nome: 'Chocolate Triplo' },
-  { nome: 'Caramelo Salgado' },
-  { nome: 'Especial da Semana', selo: 'Muda toda semana', descricao: 'Pergunte no WhatsApp qual é o desta semana.' },
+  { nome: 'Tradicional', selo: 'O clássico', descricao: 'Massa aromatizada de baunilha com muita gota de chocolate.', foto: 'tradicional', fotoPosicao: '50% 30%' },
+  { nome: 'Nutella', selo: 'Queridinho de muitos', descricao: 'Massa de baunilha com gota de chocolate e recheio de Nutella.', foto: 'nutella', fotoPosicao: '50% 45%' },
+  { nome: 'Kinder Bueno', selo: 'Um sucesso', descricao: 'Massa de baunilha, muito chocolate branco e ao leite, com recheio de Kinder e avelã torrada.', foto: 'kinder-bueno' },
+  { nome: 'Pistache', selo: 'Trending', descricao: 'Massa de baunilha com farofa de pistache, chocolate branco e recheio de pistache torrado com ganache de chocolate branco.', foto: 'pistache', fotoPosicao: '50% 50%' },
+  { nome: 'Red Velvet', selo: 'Atemporal', descricao: 'Massa especial de red velvet, chocolate branco e recheio de Ninho caramelizado com cream cheese.', foto: 'red-velvet' },
+  // PENDENTE: descrição e foto.
+  { nome: 'Chocolate Triplo', descricao: '[Descrição a confirmar]' },
+  // PENDENTE: descrição e foto.
+  { nome: 'Caramelo Salgado', descricao: '[Descrição a confirmar]' },
+  { nome: 'Especial da Semana', selo: 'Muda toda semana', descricao: 'Um sabor diferente a cada semana. O desta semana aparece no Instagram.' },
 ];

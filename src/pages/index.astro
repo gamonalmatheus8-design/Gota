@@ -1,199 +1,420 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
-import '@fontsource-variable/bricolage-grotesque';
+import '@fontsource/shrikhand/400.css';
+import '@fontsource/sacramento/400.css';
 import '@fontsource/albert-sans/400.css';
 import '@fontsource/albert-sans/500.css';
 import '@fontsource/albert-sans/600.css';
 import '@fontsource/albert-sans/700.css';
-import '@fontsource/sacramento/400.css';
-import '@fontsource/caveat-brush/400.css';
 import '../styles/global.css';
 import { loja, sabores, combos, precoUnitario } from '../data/loja';
 
 const fotos = import.meta.glob<{ default: ImageMetadata }>('../assets/fotos/*.jpg', { eager: true });
 const foto = (nome?: string) => (nome ? fotos[`../assets/fotos/${nome}.jpg`]?.default : undefined);
+const slug = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, '-');
 
-const prateleiras = [sabores.slice(0, 4), sabores.slice(4, 8)];
-const config = { whatsapp: loja.whatsapp, preco: precoUnitario, combos };
+const comFoto = sabores.filter((s) => s.foto);
+const thumbs: Record<string, string> = {};
+for (const s of comFoto) {
+  const t = await getImage({ src: foto(s.foto)!, width: 200, height: 200, fit: 'cover', format: 'webp' });
+  thumbs[s.nome] = t.src;
+}
+const config = {
+  whatsapp: loja.whatsapp,
+  instagram: loja.instagram,
+  preco: precoUnitario,
+  combos,
+  sabores: sabores.map((s) => ({ nome: s.nome, thumb: thumbs[s.nome] ?? null, pos: s.fotoPosicao ?? '50% 50%' })),
+};
+const temWhats = Boolean(loja.whatsapp);
+
+const iconMinus = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+const iconPlus = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v12M6 12h12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
 ---
 <!doctype html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>By Gota · Cookies da casa em Juiz de Fora</title>
-  <meta name="description" content="Cookies grossos e recheados na Rua Santo Antônio, 765, Centro de Juiz de Fora. Monte seu pedido e mande no WhatsApp.">
-  <meta name="theme-color" content="#f3e7d3">
+  <title>By Gota · Cookies feitos à mão em Juiz de Fora</title>
+  <meta name="description" content="Cookies grossos e recheados, todos a R$ 14. Rua Santo Antônio, 765, Centro de Juiz de Fora. Monte sua caixa e faça o pedido.">
+  <meta name="theme-color" content="#2b1810">
 </head>
 <body>
-  <a class="skip" href="#vitrine">Pular para a vitrine</a>
+  <a class="skip" href="#cardapio">Pular para o cardápio</a>
 
-  <header class="top">
+  <header class="rim" id="rim">
     <a class="wordmark" href="/" aria-label="By Gota, página inicial"><span class="by">by</span><span class="script">Gota</span></a>
     <nav aria-label="Principal">
-      <a href="#vitrine">Vitrine</a>
-      <a href="#combos">Combos</a>
+      <a href="#cardapio">Cardápio</a>
+      <a href="#caixa">Sua caixa</a>
       <a href="#loja">A loja</a>
     </nav>
+    <div class="rim-end">
+      <a class="rim-store" href="#loja">A loja</a>
+      <a class="bag-btn" href="#caixa" id="bag-btn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z M9 8V6.5a3 3 0 0 1 6 0V8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        <span class="sr-only">Sua caixa:</span><b id="bag-count">0</b><span class="sr-only">cookies</span>
+      </a>
+    </div>
   </header>
 
   <main>
-    <section class="sign" aria-labelledby="titulo">
-      <h1 id="titulo">Cookies<br>da <span>casa.</span></h1>
-      <p>A vitrine de hoje, do jeito que está no balcão. Todos a R$&nbsp;14. Toque nos cookies para separar os seus e mande o pedido pronto no WhatsApp.</p>
-    </section>
-
-    <section class="case" id="vitrine" aria-label="Vitrine de hoje">
-      <div class="glass">
-        {prateleiras.map((linha) => (
-          <div class="shelf">
-            {linha.map((s) => {
-              const img = foto(s.foto);
-              return (
-                <article class="item" data-nome={s.nome}>
-                  <button type="button" class="pick" aria-label={`Adicionar ${s.nome} à sacola`}>
-                    <span class="plate">
-                      {img ? (
-                        <Image src={img} alt={`Cookie ${s.nome}`} widths={[320, 480, 720]} sizes="(max-width: 860px) 46vw, 22vw" style={s.fotoPosicao ? `object-position:${s.fotoPosicao}` : undefined} />
-                      ) : (
-                        <span class="plate-script script" aria-hidden="true">{s.nome}</span>
-                      )}
-                    </span>
-                    <span class="tag">
-                      <span class="tag-price">R$ 14</span>
-                      <span class="tag-name">{s.nome}</span>
-                    </span>
-                    <span class="qty" aria-hidden="true">0</span>
-                  </button>
-                  <button type="button" class="less" aria-label={`Tirar um ${s.nome}`} hidden>−</button>
-                  {(s.selo || s.descricao) && (
-                    <p class="note">{s.selo && <strong>{s.selo}.</strong>} {s.descricao}</p>
-                  )}
-                </article>
-              );
-            })}
+    <!-- ===== a assadeira ===== -->
+    <section class="tray" aria-labelledby="titulo">
+      <div class="sheet">
+        <div class="copy">
+          <p class="where"><i aria-hidden="true"></i>{loja.endereco} · Centro, Juiz de Fora</p>
+          <h1 id="titulo">Gota a gota, feito à mão.</h1>
+          <p class="lede">Cookie grosso, recheio que escorre. <strong>Oito sabores, todos a R$&nbsp;14.</strong> Monte sua caixa aqui e leve 4, 5 ou 6 por menos.</p>
+          <div class="actions">
+            <a class="btn btn-main" href="#cardapio">Montar minha caixa</a>
+            <a class="btn btn-ghost" href="#loja">Como chegar</a>
           </div>
-        ))}
-      </div>
-    </section>
+        </div>
 
-    <div class="bag" id="sacola" role="region" aria-label="Sua sacola">
-      <p class="bag-sum" aria-live="polite"><span id="bag-text">Sua sacola está vazia: toque num cookie da vitrine.</span></p>
-      <div class="bag-actions">
-        <button type="button" class="bag-clear" id="bag-clear" hidden>Esvaziar</button>
-        <a class="btn btn-whats" id="bag-send" href={loja.instagram} aria-disabled="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 11.6a8.4 8.4 0 0 1-12.4 7.4L3.5 20.5l1.5-4.5a8.4 8.4 0 1 1 15.5-4.4Z"/></svg>
-          Enviar pedido no WhatsApp
-        </a>
-      </div>
-    </div>
-
-    <section class="combos" id="combos" aria-labelledby="combos-titulo">
-      <h2 id="combos-titulo">Leve mais, pague menos.</h2>
-      <p class="lead">A sacola já calcula sozinha o melhor preço: misture os sabores como quiser.</p>
-      <ul class="combo-tags">
-        {combos.map(([q, p]) => (
-          <li>
-            <span class="combo-q">{q} cookies</span>
-            <span class="combo-p">R$ {p}</span>
-            <span class="combo-save">em vez de R$ {q * precoUnitario}</span>
-          </li>
-        ))}
-      </ul>
-    </section>
-
-    <section class="store" id="loja" aria-labelledby="loja-titulo">
-      <div class="store-copy">
-        <h2 id="loja-titulo">Passa aqui, a vitrine é de verdade.</h2>
-        <address>
-          <span>{loja.endereco}</span>
-          <span>{loja.bairroCidade}</span>
-        </address>
-        <p class="hours">{loja.horario || 'Horários atualizados nos destaques do nosso Instagram.'}</p>
-        <div class="store-actions">
-          <a class="btn btn-dark" href={loja.mapa} target="_blank" rel="noopener">Abrir no mapa</a>
-          <a class="btn btn-line" href={loja.instagram} target="_blank" rel="noopener">Ver o Instagram</a>
+        <div class="stage" id="stage" aria-roledescription="carrossel" aria-label="Sabores em destaque">
+          <div class="stage-frame">
+            {comFoto.map((s, i) => (
+              <figure class={`stage-slide${i === 1 ? ' on' : ''}`} data-nome={s.nome}>
+                <Image src={foto(s.foto)!} alt={`Cookie ${s.nome}`} widths={[480, 720, 960]} sizes="(max-width: 860px) 92vw, 50vw" loading={i === 1 ? 'eager' : 'lazy'} style={`object-position:${s.fotoPosicao ?? '50% 50%'}`} />
+              </figure>
+            ))}
+            <svg class="handwrite" viewBox="0 0 600 170" aria-hidden="true"><text x="18" y="128" id="hw-text">Nutella</text></svg>
+            <div class="stage-card">
+              <div>
+                <p class="stage-selo" id="stage-selo">Queridinho de muitos</p>
+                <p class="stage-price">R$ 14</p>
+              </div>
+              <button type="button" class="btn btn-main btn-add" id="stage-add" data-nome="Nutella">
+                <span set:html={iconPlus} class="ico"></span><span id="stage-add-label">Adicionar</span>
+              </button>
+            </div>
+          </div>
+          <div class="chips" role="tablist" aria-label="Escolher sabor">
+            {comFoto.map((s, i) => (
+              <button type="button" role="tab" class={`chip${i === 1 ? ' on' : ''}`} aria-selected={i === 1 ? 'true' : 'false'} data-nome={s.nome} data-selo={s.selo}>
+                <Image src={foto(s.foto)!} alt="" width={96} height={96} fit="cover" style={`object-position:${s.fotoPosicao ?? '50% 50%'}`} />
+                <span>{s.nome}</span>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
-      <a class="insta" href={loja.instagram} target="_blank" rel="noopener" aria-label="Instagram da By Gota">
-        <span class="script">Gota</span>
-        <span class="insta-user">{loja.instagramUser}</span>
-        <span class="insta-line">seus doces favoritos, todo dia no Instagram</span>
-      </a>
+    </section>
+
+    <!-- ===== cardápio ===== -->
+    <section class="menu" id="cardapio" aria-labelledby="cardapio-titulo">
+      <div class="menu-stage" aria-hidden="true">
+        {comFoto.map((s, i) => (
+          <figure class={`ms-slide${i === 0 ? ' on' : ''}`} data-nome={s.nome}>
+            <Image src={foto(s.foto)!} alt="" widths={[480, 720]} sizes="40vw" style={`object-position:${s.fotoPosicao ?? '50% 50%'}`} />
+          </figure>
+        ))}
+        <div class="ms-empty"><span class="script" id="ms-empty-name">Chocolate Triplo</span><span>Foto em breve</span></div>
+        <p class="ms-caption script" id="ms-caption">Tradicional</p>
+      </div>
+
+      <div class="menu-list">
+        <h2 id="cardapio-titulo" class="script">Cardápio</h2>
+        <p class="menu-sub">Todos os cookies a R$ 14. Passe pelos sabores e monte sua caixa.</p>
+        <ul class="rows">
+          {sabores.map((s) => {
+            const img = foto(s.foto);
+            return (
+              <li class="row" data-nome={s.nome} id={`sabor-${slug(s.nome)}`} tabindex="-1">
+                <span class="row-thumb" aria-hidden="true">
+                  {img ? <Image src={img} alt="" width={120} height={120} fit="cover" style={`object-position:${s.fotoPosicao ?? '50% 50%'}`} /> : <span class="script">{s.nome.charAt(0)}</span>}
+                </span>
+                <div class="row-text">
+                  <h3><span class="script">{s.nome}</span>{s.selo && <span class="selo">{s.selo}</span>}</h3>
+                  <p>{s.descricao}</p>
+                </div>
+                <div class="row-buy">
+                  <span class="row-price">R$ 14</span>
+                  <div class="step">
+                    <button type="button" class="step-less" aria-label={`Tirar um ${s.nome}`} set:html={iconMinus}></button>
+                    <output aria-live="polite" aria-label={`${s.nome} na caixa`}>0</output>
+                    <button type="button" class="step-more" aria-label={`Adicionar ${s.nome}`} set:html={iconPlus}></button>
+                  </div>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== a caixa ===== -->
+    <section class="box-section" id="caixa" aria-labelledby="caixa-titulo">
+      <div class="box-head">
+        <h2 id="caixa-titulo">Sua caixa</h2>
+        <p id="box-hint">Escolha os sabores no cardápio. A caixa enche aqui, e o melhor preço entra sozinho.</p>
+      </div>
+
+      <div class="box-grid">
+        <div class="box" id="box" aria-label="Cookies na caixa">
+          <div class="box-lid" aria-hidden="true"><span class="script">Gota</span></div>
+          <ol class="slots" id="slots"></ol>
+        </div>
+
+        <aside class="receipt" aria-label="Resumo do pedido">
+          <div class="meter" aria-hidden="true">
+            <div class="meter-track"><span class="meter-fill" id="meter-fill"></span></div>
+            <ol class="meter-marks">
+              {combos.map(([q, p]) => <li data-q={q} style={`left:${q === 4 ? 40 : q === 5 ? 70 : 100}%`}><b>{q}</b><span>R$ {p}</span></li>)}
+            </ol>
+          </div>
+          <p class="nudge" id="nudge">Com 4 cookies, a caixa sai por R$ 54.</p>
+
+          <ul class="lines" id="lines"></ul>
+
+          <div class="total">
+            <span>Total</span>
+            <span><s id="total-full" hidden></s> <strong id="total">R$ 0,00</strong></span>
+          </div>
+
+          <label class="field">
+            <span>Seu nome (opcional)</span>
+            <input id="nome" name="nome" type="text" autocomplete="given-name" placeholder="Para a gente separar seu pedido">
+          </label>
+
+          {temWhats ? (
+            <a class="btn btn-main btn-send" id="send" href="#" aria-disabled="true">Enviar pedido no WhatsApp</a>
+          ) : (
+            <>
+              <button type="button" class="btn btn-main btn-send" id="send" aria-disabled="true">Copiar pedido e abrir o Instagram</button>
+              <p class="send-note">O pedido pelo site chega ao WhatsApp em breve. Por enquanto, copie a mensagem e envie no direct do <a href={loja.instagram} target="_blank" rel="noopener">{loja.instagramUser}</a>.</p>
+            </>
+          )}
+          <p class="copied" id="copied" role="status"></p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===== a loja ===== -->
+    <section class="store" id="loja" aria-labelledby="loja-titulo">
+      <figure class="store-photo">
+        <Image src={foto('tradicional')!} alt="Cookie Tradicional sobre uma boleira branca" widths={[480, 720, 960]} sizes="(max-width: 860px) 92vw, 55vw" style="object-position:50% 40%" />
+      </figure>
+      <div class="store-copy">
+        <h2 id="loja-titulo">Passa aqui, sai quentinho.</h2>
+        <address><span>{loja.endereco}</span><span>{loja.bairroCidade}</span></address>
+        <p>{loja.horario || 'Os horários ficam nos destaques do nosso Instagram.'}</p>
+        <div class="actions">
+          <a class="btn btn-main" href={loja.mapa} target="_blank" rel="noopener">Abrir no mapa</a>
+          <a class="btn btn-ghost" href={loja.instagram} target="_blank" rel="noopener">{loja.instagramUser}</a>
+        </div>
+      </div>
     </section>
   </main>
 
   <footer class="foot">
-    <span>By Gota · {loja.endereco}, {loja.bairroCidade}</span>
+    <span class="script">Gota</span>
+    <span>seus doces favoritos · {loja.endereco}, {loja.bairroCidade}</span>
     <a href={loja.instagram} target="_blank" rel="noopener">{loja.instagramUser}</a>
   </footer>
 
+  <a class="dock" href="#caixa" id="dock" aria-hidden="true" tabindex="-1">
+    <span id="dock-text">0 cookies</span>
+    <span class="dock-cta">Ver caixa</span>
+  </a>
+
   <script is:inline type="application/json" id="config" set:html={JSON.stringify(config)}></script>
   <script>
-    const cfg = JSON.parse(document.getElementById('config')!.textContent!);
+    type Sab = { nome: string; thumb: string | null; pos: string };
+    const cfg = JSON.parse(document.getElementById('config')!.textContent!) as {
+      whatsapp: string; instagram: string; preco: number; combos: Array<[number, number]>; sabores: Sab[];
+    };
+    const $ = <T extends Element = HTMLElement>(s: string, r: ParentNode = document) => r.querySelector(s) as T;
+    const $$ = <T extends Element = HTMLElement>(s: string, r: ParentNode = document) => [...r.querySelectorAll(s)] as T[];
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const brl = (v: number) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    const byName = new Map(cfg.sabores.map((s) => [s.nome, s]));
+
+    // ---------- preço: melhor combinação ----------
     const packs: Array<[number, number]> = [[1, cfg.preco], ...cfg.combos];
     const best = (n: number) => {
       const c = [0];
-      for (let i = 1; i <= n; i++) {
-        c[i] = Infinity;
-        for (const [k, p] of packs) if (i >= k) c[i] = Math.min(c[i], c[i - k] + p);
-      }
+      for (let i = 1; i <= n; i++) { c[i] = Infinity; for (const [k, p] of packs) if (i >= k) c[i] = Math.min(c[i], c[i - k] + p); }
       return c[n];
     };
-    const brl = (v: number) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    const qty = new Map<string, number>();
-    const items = [...document.querySelectorAll<HTMLElement>('.item')];
-    const text = document.getElementById('bag-text')!;
-    const send = document.getElementById('bag-send') as HTMLAnchorElement;
-    const clear = document.getElementById('bag-clear')!;
-    const bag = document.getElementById('sacola')!;
 
-    function render() {
-      let n = 0;
-      const parts: string[] = [];
-      for (const el of items) {
-        const nome = el.dataset.nome!;
-        const q = qty.get(nome) ?? 0;
-        n += q;
-        if (q) parts.push(`${q} ${nome}`);
-        el.classList.toggle('has', q > 0);
-        el.querySelector('.qty')!.textContent = String(q);
-        (el.querySelector('.less') as HTMLElement).hidden = q === 0;
-      }
-      clear.hidden = n === 0;
-      if (!n) {
-        text.textContent = 'Sua sacola está vazia: toque num cookie da vitrine.';
-        send.setAttribute('aria-disabled', 'true');
-        return;
-      }
+    // ---------- estado ----------
+    const order: string[] = []; // cada item é um cookie, na ordem em que entrou
+    const count = (nome: string) => order.filter((x) => x === nome).length;
+
+    // ---------- palco: nome escrito à mão ----------
+    const hw = $<SVGTextElement>('#hw-text');
+    function writeName(nome: string) {
+      hw.textContent = nome;
+      if (reduce) return;
+      hw.classList.remove('writing');
+      void (hw as unknown as HTMLElement).getBoundingClientRect();
+      hw.classList.add('writing');
+    }
+
+    const slides = $$('.stage-slide');
+    const chips = $$<HTMLButtonElement>('.chip');
+    const addBtn = $<HTMLButtonElement>('#stage-add');
+    let current = 1;
+    function show(i: number) {
+      current = (i + chips.length) % chips.length;
+      const chip = chips[current];
+      const nome = chip.dataset.nome!;
+      slides.forEach((s) => s.classList.toggle('on', s.dataset.nome === nome));
+      chips.forEach((c) => { const on = c === chip; c.classList.toggle('on', on); c.setAttribute('aria-selected', String(on)); });
+      $('#stage-selo').textContent = chip.dataset.selo ?? '';
+      addBtn.dataset.nome = nome;
+      $('#stage-add-label').textContent = `Adicionar`;
+      addBtn.setAttribute('aria-label', `Adicionar ${nome} à caixa`);
+      writeName(nome);
+    }
+    chips.forEach((c, i) => c.addEventListener('click', () => { stopAuto(); show(i); }));
+    let auto: number | undefined;
+    const stage = $('#stage');
+    function startAuto() { if (reduce || auto) return; auto = window.setInterval(() => show(current + 1), 5200); }
+    function stopAuto() { clearInterval(auto); auto = undefined; }
+    stage.addEventListener('pointerenter', stopAuto);
+    stage.addEventListener('focusin', stopAuto);
+    document.fonts.load('64px Sacramento').then(() => { writeName(chips[current].dataset.nome!); startAuto(); });
+
+    // ---------- cardápio: palco que segue o sabor ----------
+    const msSlides = $$('.ms-slide');
+    const msEmpty = $('.ms-empty');
+    function focusFlavor(nome: string) {
+      let has = false;
+      msSlides.forEach((s) => { const on = s.dataset.nome === nome; s.classList.toggle('on', on); has ||= on; });
+      msEmpty.classList.toggle('on', !has);
+      $('#ms-empty-name').textContent = nome;
+      $('#ms-caption').textContent = nome;
+    }
+    const rows = $$('.row');
+    rows.forEach((r) => {
+      r.addEventListener('pointerenter', () => focusFlavor(r.dataset.nome!));
+      r.addEventListener('focusin', () => focusFlavor(r.dataset.nome!));
+      $('.step-more', r).addEventListener('click', (e) => add(r.dataset.nome!, (e.currentTarget as HTMLElement).closest('.row')!.querySelector('.row-thumb') as HTMLElement));
+      $('.step-less', r).addEventListener('click', () => remove(r.dataset.nome!));
+    });
+    addBtn.addEventListener('click', () => add(addBtn.dataset.nome!, $('.stage-slide.on') as HTMLElement));
+
+    // ---------- o cookie voa até a caixa ----------
+    function fly(from: HTMLElement | null, nome: string) {
+      const target = $('#bag-btn');
+      const s = byName.get(nome);
+      if (reduce || !from) return;
+      const a = from.getBoundingClientRect();
+      const b = target.getBoundingClientRect();
+      const size = 72;
+      const el = document.createElement('div');
+      el.className = 'flyer';
+      if (s?.thumb) el.style.backgroundImage = `url(${s.thumb})`;
+      else { el.classList.add('flyer-script'); el.textContent = nome.charAt(0); }
+      el.style.left = `${a.left + a.width / 2 - size / 2}px`;
+      el.style.top = `${a.top + a.height / 2 - size / 2}px`;
+      document.body.appendChild(el);
+      const dx = b.left + b.width / 2 - (a.left + a.width / 2);
+      const dy = b.top + b.height / 2 - (a.top + a.height / 2);
+      el.animate([
+        { transform: 'translate(0,0) scale(1) rotate(0deg)', opacity: 1 },
+        { transform: `translate(${dx * 0.5}px, ${dy * 0.5 - 80}px) scale(.8) rotate(-120deg)`, opacity: 1, offset: 0.55 },
+        { transform: `translate(${dx}px, ${dy}px) scale(.25) rotate(-220deg)`, opacity: 0.2 },
+      ], { duration: 760, easing: 'cubic-bezier(.5,0,.2,1)' }).finished.then(() => {
+        el.remove();
+        target.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.18)' }, { transform: 'scale(1)' }], { duration: 380, easing: 'cubic-bezier(.16,1,.3,1)' });
+      });
+    }
+
+    function add(nome: string, from: HTMLElement | null) { order.push(nome); fly(from, nome); render(true); }
+    function remove(nome: string) { const i = order.lastIndexOf(nome); if (i >= 0) order.splice(i, 1); render(false); }
+
+    // ---------- render ----------
+    const slots = $('#slots');
+    function slotHTML(nome: string | null, fresh: boolean) {
+      if (!nome) return '<li class="slot empty"></li>';
+      const s = byName.get(nome)!;
+      const inner = s.thumb ? `<img src="${s.thumb}" alt="" style="object-position:${s.pos}">` : `<span class="script">${nome.charAt(0)}</span>`;
+      return `<li class="slot${fresh ? ' fresh' : ''}" title="${nome}"><span class="sr-only">${nome}</span>${inner}</li>`;
+    }
+    function render(added: boolean) {
+      const n = order.length;
       const total = best(n);
-      const economia = n * cfg.preco - total;
-      text.innerHTML = `<strong>${n} ${n > 1 ? 'cookies' : 'cookie'} · ${brl(total)}</strong>${economia ? ` <em>economia de ${brl(economia)}</em>` : ''}<small>${parts.join(', ')}</small>`;
-      const msg = `Oi, Gota! Quero pedir: ${parts.join(', ')}. Total ${brl(total)}.`;
-      send.href = cfg.whatsapp ? `https://wa.me/${cfg.whatsapp}?text=${encodeURIComponent(msg)}` : send.href;
-      send.removeAttribute('aria-disabled');
+      const full = n * cfg.preco;
+
+      $('#bag-count').textContent = String(n);
+      rows.forEach((r) => { const q = count(r.dataset.nome!); $('output', r).textContent = String(q); r.classList.toggle('has', q > 0); });
+      const mine = count(addBtn.dataset.nome!);
+      $('#stage-add-label').textContent = mine ? `Mais um · ${mine}` : 'Adicionar';
+
+      // caixa com espaços de 6 em 6
+      const cap = Math.max(6, Math.ceil(n / 6) * 6);
+      slots.innerHTML = Array.from({ length: cap }, (_, i) => slotHTML(order[i] ?? null, added && i === n - 1)).join('');
+
+      // régua de combos
+      const m = Math.min(n, 6);
+      $('#meter-fill').style.width = `${m <= 4 ? (m / 4) * 40 : 40 + (m - 4) * 30}%`;
+      $$('.meter-marks li').forEach((li) => li.classList.toggle('hit', n >= Number(li.dataset.q)));
+      const next = cfg.combos.find(([q]) => q > n && q <= 6);
+      const nudge = $('#nudge');
+      if (n === 0) nudge.textContent = 'Com 4 cookies, a caixa sai por R$ 54.';
+      else if (next) {
+        const [q, p] = next;
+        const falta = q - n;
+        nudge.innerHTML = `Mais <strong>${falta} ${falta > 1 ? 'cookies' : 'cookie'}</strong> e ${q} saem por ${brl(p)}, economia de ${brl(q * cfg.preco - p)}.`;
+      } else nudge.innerHTML = `Preço especial aplicado: <strong>economia de ${brl(full - total)}</strong>.`;
+
+      // linhas do resumo
+      const names = [...new Set(order)];
+      $('#lines').innerHTML = names.length
+        ? names.map((nm) => `<li><span>${count(nm)}× ${nm}</span><span class="line-actions"><button type="button" data-less="${nm}" aria-label="Tirar um ${nm}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button><button type="button" data-more="${nm}" aria-label="Adicionar ${nm}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v12M6 12h12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></span></li>`).join('')
+        : '<li class="lines-empty">Nenhum cookie ainda.</li>';
+
+      $('#total').textContent = brl(total);
+      const fullEl = $('#total-full');
+      fullEl.hidden = full === total;
+      fullEl.textContent = brl(full);
+
+      $('#box-hint').textContent = n ? `${n} ${n > 1 ? 'cookies' : 'cookie'} na caixa.` : 'Escolha os sabores no cardápio. A caixa enche aqui, e o melhor preço entra sozinho.';
+
+      const send = $('#send');
+      send.setAttribute('aria-disabled', String(n === 0));
+
+      const dock = $('#dock');
+      dock.classList.toggle('on', n > 0 && !boxVisible);
+      $('#dock-text').textContent = `${n} ${n > 1 ? 'cookies' : 'cookie'} · ${brl(total)}`;
     }
 
-    for (const el of items) {
-      const nome = el.dataset.nome!;
-      el.querySelector('.pick')!.addEventListener('click', () => {
-        qty.set(nome, (qty.get(nome) ?? 0) + 1);
-        el.classList.remove('bump');
-        void el.offsetWidth;
-        el.classList.add('bump');
-        bag.classList.remove('bump');
-        void bag.offsetWidth;
-        bag.classList.add('bump');
-        render();
-      });
-      el.querySelector('.less')!.addEventListener('click', () => {
-        qty.set(nome, Math.max(0, (qty.get(nome) ?? 0) - 1));
-        render();
-      });
+    $('#lines').addEventListener('click', (e) => {
+      const b = (e.target as HTMLElement).closest('button');
+      if (!b) return;
+      if (b.dataset.less) remove(b.dataset.less);
+      if (b.dataset.more) add(b.dataset.more, null);
+    });
+
+    // ---------- mensagem do pedido ----------
+    function message() {
+      const names = [...new Set(order)];
+      const nome = ($('#nome') as HTMLInputElement).value.trim();
+      return `Oi, Gota!${nome ? ` Aqui é ${nome}.` : ''} Quero pedir: ${names.map((nm) => `${count(nm)} ${nm}`).join(', ')}. Total ${brl(best(order.length))}.`;
     }
-    clear.addEventListener('click', () => { qty.clear(); render(); });
-    send.addEventListener('click', (e) => { if (send.getAttribute('aria-disabled') === 'true') e.preventDefault(); });
+    const send = $('#send');
+    send.addEventListener('click', async (e) => {
+      if (send.getAttribute('aria-disabled') === 'true') { e.preventDefault(); return; }
+      if (cfg.whatsapp) { (send as HTMLAnchorElement).href = `https://wa.me/${cfg.whatsapp}?text=${encodeURIComponent(message())}`; return; }
+      const status = $('#copied');
+      try { await navigator.clipboard.writeText(message()); status.textContent = 'Pedido copiado. Cole no direct do Instagram.'; }
+      catch { status.textContent = message(); }
+      window.open(cfg.instagram, '_blank', 'noopener');
+    });
+
+    // ---------- topo e dock ----------
+    let boxVisible = false;
+    new IntersectionObserver(([en]) => { boxVisible = en.isIntersecting; $('#dock').classList.toggle('on', order.length > 0 && !boxVisible); }, { threshold: 0.15 }).observe($('#caixa'));
+    const rim = $('#rim');
+    new IntersectionObserver(([en]) => rim.classList.toggle('stuck', !en.isIntersecting), { rootMargin: '-80px 0px 0px 0px' }).observe($('.tray'));
+
+    render(false);
   </script>
 </body>
 </html>
