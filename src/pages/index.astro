@@ -1,0 +1,199 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import '@fontsource-variable/bricolage-grotesque';
+import '@fontsource/albert-sans/400.css';
+import '@fontsource/albert-sans/500.css';
+import '@fontsource/albert-sans/600.css';
+import '@fontsource/albert-sans/700.css';
+import '@fontsource/sacramento/400.css';
+import '@fontsource/caveat-brush/400.css';
+import '../styles/global.css';
+import { loja, sabores, combos, precoUnitario } from '../data/loja';
+
+const fotos = import.meta.glob<{ default: ImageMetadata }>('../assets/fotos/*.jpg', { eager: true });
+const foto = (nome?: string) => (nome ? fotos[`../assets/fotos/${nome}.jpg`]?.default : undefined);
+
+const prateleiras = [sabores.slice(0, 4), sabores.slice(4, 8)];
+const config = { whatsapp: loja.whatsapp, preco: precoUnitario, combos };
+---
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>By Gota · Cookies da casa em Juiz de Fora</title>
+  <meta name="description" content="Cookies grossos e recheados na Rua Santo Antônio, 765, Centro de Juiz de Fora. Monte seu pedido e mande no WhatsApp.">
+  <meta name="theme-color" content="#f3e7d3">
+</head>
+<body>
+  <a class="skip" href="#vitrine">Pular para a vitrine</a>
+
+  <header class="top">
+    <a class="wordmark" href="/" aria-label="By Gota, página inicial"><span class="by">by</span><span class="script">Gota</span></a>
+    <nav aria-label="Principal">
+      <a href="#vitrine">Vitrine</a>
+      <a href="#combos">Combos</a>
+      <a href="#loja">A loja</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="sign" aria-labelledby="titulo">
+      <h1 id="titulo">Cookies<br>da <span>casa.</span></h1>
+      <p>A vitrine de hoje, do jeito que está no balcão. Todos a R$&nbsp;14. Toque nos cookies para separar os seus e mande o pedido pronto no WhatsApp.</p>
+    </section>
+
+    <section class="case" id="vitrine" aria-label="Vitrine de hoje">
+      <div class="glass">
+        {prateleiras.map((linha) => (
+          <div class="shelf">
+            {linha.map((s) => {
+              const img = foto(s.foto);
+              return (
+                <article class="item" data-nome={s.nome}>
+                  <button type="button" class="pick" aria-label={`Adicionar ${s.nome} à sacola`}>
+                    <span class="plate">
+                      {img ? (
+                        <Image src={img} alt={`Cookie ${s.nome}`} widths={[320, 480, 720]} sizes="(max-width: 860px) 46vw, 22vw" style={s.fotoPosicao ? `object-position:${s.fotoPosicao}` : undefined} />
+                      ) : (
+                        <span class="plate-script script" aria-hidden="true">{s.nome}</span>
+                      )}
+                    </span>
+                    <span class="tag">
+                      <span class="tag-price">R$ 14</span>
+                      <span class="tag-name">{s.nome}</span>
+                    </span>
+                    <span class="qty" aria-hidden="true">0</span>
+                  </button>
+                  <button type="button" class="less" aria-label={`Tirar um ${s.nome}`} hidden>−</button>
+                  {(s.selo || s.descricao) && (
+                    <p class="note">{s.selo && <strong>{s.selo}.</strong>} {s.descricao}</p>
+                  )}
+                </article>
+              );
+            })}
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <div class="bag" id="sacola" role="region" aria-label="Sua sacola">
+      <p class="bag-sum" aria-live="polite"><span id="bag-text">Sua sacola está vazia: toque num cookie da vitrine.</span></p>
+      <div class="bag-actions">
+        <button type="button" class="bag-clear" id="bag-clear" hidden>Esvaziar</button>
+        <a class="btn btn-whats" id="bag-send" href={loja.instagram} aria-disabled="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 11.6a8.4 8.4 0 0 1-12.4 7.4L3.5 20.5l1.5-4.5a8.4 8.4 0 1 1 15.5-4.4Z"/></svg>
+          Enviar pedido no WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <section class="combos" id="combos" aria-labelledby="combos-titulo">
+      <h2 id="combos-titulo">Leve mais, pague menos.</h2>
+      <p class="lead">A sacola já calcula sozinha o melhor preço: misture os sabores como quiser.</p>
+      <ul class="combo-tags">
+        {combos.map(([q, p]) => (
+          <li>
+            <span class="combo-q">{q} cookies</span>
+            <span class="combo-p">R$ {p}</span>
+            <span class="combo-save">em vez de R$ {q * precoUnitario}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="store" id="loja" aria-labelledby="loja-titulo">
+      <div class="store-copy">
+        <h2 id="loja-titulo">Passa aqui, a vitrine é de verdade.</h2>
+        <address>
+          <span>{loja.endereco}</span>
+          <span>{loja.bairroCidade}</span>
+        </address>
+        <p class="hours">{loja.horario || 'Horários atualizados nos destaques do nosso Instagram.'}</p>
+        <div class="store-actions">
+          <a class="btn btn-dark" href={loja.mapa} target="_blank" rel="noopener">Abrir no mapa</a>
+          <a class="btn btn-line" href={loja.instagram} target="_blank" rel="noopener">Ver o Instagram</a>
+        </div>
+      </div>
+      <a class="insta" href={loja.instagram} target="_blank" rel="noopener" aria-label="Instagram da By Gota">
+        <span class="script">Gota</span>
+        <span class="insta-user">{loja.instagramUser}</span>
+        <span class="insta-line">seus doces favoritos, todo dia no Instagram</span>
+      </a>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>By Gota · {loja.endereco}, {loja.bairroCidade}</span>
+    <a href={loja.instagram} target="_blank" rel="noopener">{loja.instagramUser}</a>
+  </footer>
+
+  <script is:inline type="application/json" id="config" set:html={JSON.stringify(config)}></script>
+  <script>
+    const cfg = JSON.parse(document.getElementById('config')!.textContent!);
+    const packs: Array<[number, number]> = [[1, cfg.preco], ...cfg.combos];
+    const best = (n: number) => {
+      const c = [0];
+      for (let i = 1; i <= n; i++) {
+        c[i] = Infinity;
+        for (const [k, p] of packs) if (i >= k) c[i] = Math.min(c[i], c[i - k] + p);
+      }
+      return c[n];
+    };
+    const brl = (v: number) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    const qty = new Map<string, number>();
+    const items = [...document.querySelectorAll<HTMLElement>('.item')];
+    const text = document.getElementById('bag-text')!;
+    const send = document.getElementById('bag-send') as HTMLAnchorElement;
+    const clear = document.getElementById('bag-clear')!;
+    const bag = document.getElementById('sacola')!;
+
+    function render() {
+      let n = 0;
+      const parts: string[] = [];
+      for (const el of items) {
+        const nome = el.dataset.nome!;
+        const q = qty.get(nome) ?? 0;
+        n += q;
+        if (q) parts.push(`${q} ${nome}`);
+        el.classList.toggle('has', q > 0);
+        el.querySelector('.qty')!.textContent = String(q);
+        (el.querySelector('.less') as HTMLElement).hidden = q === 0;
+      }
+      clear.hidden = n === 0;
+      if (!n) {
+        text.textContent = 'Sua sacola está vazia: toque num cookie da vitrine.';
+        send.setAttribute('aria-disabled', 'true');
+        return;
+      }
+      const total = best(n);
+      const economia = n * cfg.preco - total;
+      text.innerHTML = `<strong>${n} ${n > 1 ? 'cookies' : 'cookie'} · ${brl(total)}</strong>${economia ? ` <em>economia de ${brl(economia)}</em>` : ''}<small>${parts.join(', ')}</small>`;
+      const msg = `Oi, Gota! Quero pedir: ${parts.join(', ')}. Total ${brl(total)}.`;
+      send.href = cfg.whatsapp ? `https://wa.me/${cfg.whatsapp}?text=${encodeURIComponent(msg)}` : send.href;
+      send.removeAttribute('aria-disabled');
+    }
+
+    for (const el of items) {
+      const nome = el.dataset.nome!;
+      el.querySelector('.pick')!.addEventListener('click', () => {
+        qty.set(nome, (qty.get(nome) ?? 0) + 1);
+        el.classList.remove('bump');
+        void el.offsetWidth;
+        el.classList.add('bump');
+        bag.classList.remove('bump');
+        void bag.offsetWidth;
+        bag.classList.add('bump');
+        render();
+      });
+      el.querySelector('.less')!.addEventListener('click', () => {
+        qty.set(nome, Math.max(0, (qty.get(nome) ?? 0) - 1));
+        render();
+      });
+    }
+    clear.addEventListener('click', () => { qty.clear(); render(); });
+    send.addEventListener('click', (e) => { if (send.getAttribute('aria-disabled') === 'true') e.preventDefault(); });
+  </script>
+</body>
+</html>
