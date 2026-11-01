@@ -6,140 +6,248 @@
 <title>By Gota — Esboço A: Fornada</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Albert+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Sacramento&family=Albert+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --tray:#2a1a12;      /* cacau / assadeira */
-    --tray-2:#3a2519;
-    --paper:#ecdcc0;     /* papel manteiga */
-    --paper-2:#e3cfae;
-    --cream:#f7efe2;
-    --choco:#4a2a1a;
-    --caramel:#c07a35;
-    --caramel-ink:#8a4f1b;
-    --ink:#2a1a12;
-    --ink-soft:#6b4a36;
+    --choco:#2b1810;     /* assadeira / cacau */
+    --choco-2:#3b2216;
+    --choco-3:#4a2c1d;
+    --paper:#efe3c8;     /* papel manteiga */
+    --butter:#f1eca8;    /* amarelo-manteiga dos stories */
+    --coral:#e65a3f;     /* coral da marca, só em detalhe */
+    --ink:#2b1810;
+    --ink-soft:#5a3c2c;
+    --on-choco-soft:#d9c7ad;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  ::selection{background:var(--caramel);color:var(--cream)}
-  body{background:var(--tray);color:var(--ink);font:400 17px/1.55 "Albert Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--butter);color:var(--choco)}
+  html{scroll-behavior:smooth}
+  body{background:var(--choco);color:var(--ink);font:400 17px/1.55 "Albert Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
   a{color:inherit}
-  /* ---------- a assadeira (o primeiro viewport) ---------- */
-  .tray{min-height:100svh;padding:20px clamp(16px,2.4vw,36px) clamp(16px,2.4vw,36px);display:flex;flex-direction:column;gap:18px}
+  img{display:block;max-width:100%}
+  :focus-visible{outline:3px solid var(--coral);outline-offset:3px;border-radius:6px}
+  .script{font-family:"Sacramento",cursive;font-weight:400;letter-spacing:0}
+
+  /* ---------- a assadeira: primeiro viewport ---------- */
+  .tray{min-height:100svh;padding:14px clamp(16px,2.4vw,36px) clamp(16px,2.4vw,36px);display:flex;flex-direction:column;gap:14px}
   .rim{display:flex;align-items:center;justify-content:space-between;color:var(--paper);gap:16px}
-  .logo{font:400 30px/1 "Shrikhand",serif;letter-spacing:-.01em;text-decoration:none}
-  .rim nav{display:flex;gap:28px;font-weight:500;font-size:15px}
-  .rim nav a{text-decoration:none;opacity:.82}
-  .rim nav a:hover{opacity:1;text-decoration:underline;text-underline-offset:5px}
-  .bag{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(236,220,192,.35);border-radius:999px;padding:9px 16px;font-weight:600;font-size:14px;text-decoration:none}
-  .bag b{background:var(--caramel);color:var(--cream);border-radius:999px;min-width:22px;height:22px;display:grid;place-items:center;font-size:12px}
+  .logo{display:flex;align-items:baseline;gap:4px;text-decoration:none;color:var(--butter)}
+  .logo small{font-size:15px;font-weight:600;color:var(--on-choco-soft)}
+  .logo .script{font-size:52px;line-height:.9}
+  .rim nav{display:flex;gap:30px;font-weight:500;font-size:16px}
+  .rim nav a{text-decoration:none;color:var(--on-choco-soft)}
+  .rim nav a:hover{color:var(--paper);text-decoration:underline;text-underline-offset:6px}
+  .bag{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(239,227,200,.35);border-radius:999px;padding:10px 18px;font-weight:600;font-size:15px;text-decoration:none}
+  .bag b{background:var(--coral);color:var(--choco);border-radius:999px;min-width:24px;height:24px;display:grid;place-items:center;font-size:13px}
+
   .sheet{flex:1;position:relative;background:var(--paper);border-radius:10px;overflow:hidden;
-    box-shadow:inset 0 0 0 1px rgba(42,26,18,.08), inset 0 18px 40px -24px rgba(42,26,18,.35);
-    display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(16px,3vw,48px);padding:clamp(24px,4vw,64px)}
-  /* vincos do papel manteiga */
+    box-shadow:inset 0 18px 40px -26px rgba(43,24,16,.45);
+    display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(20px,3vw,56px);padding:clamp(28px,4vw,64px)}
   .sheet::before{content:"";position:absolute;inset:0;pointer-events:none;
-    background:linear-gradient(103deg,transparent 47.6%,rgba(255,255,255,.35) 48%,transparent 48.6%),
+    background:linear-gradient(103deg,transparent 47.6%,rgba(255,255,255,.4) 48%,transparent 48.6%),
                linear-gradient(8deg,transparent 61.5%,rgba(120,80,40,.07) 62%,transparent 62.6%)}
-  .copy{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:32px;z-index:1}
-  .stamp{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:14px;color:var(--caramel-ink);letter-spacing:.01em}
-  .stamp i{width:9px;height:9px;border-radius:50%;background:var(--caramel);box-shadow:0 0 0 4px rgba(192,122,53,.2)}
-  h1{font:400 clamp(56px,8.4vw,128px)/.9 "Shrikhand",serif;letter-spacing:-.02em;color:var(--choco);margin:18px 0 22px}
-  .lede{max-width:34ch;font-size:clamp(17px,1.35vw,20px);color:var(--ink-soft)}
-  .actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-  .btn{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:16px 26px;font-weight:700;font-size:16px;text-decoration:none;transition:transform .2s cubic-bezier(.16,1,.3,1),box-shadow .2s}
-  .btn-main{background:var(--choco);color:var(--cream);box-shadow:0 10px 24px -12px rgba(42,26,18,.7)}
-  .btn-main:hover{transform:translateY(-2px);box-shadow:0 16px 30px -14px rgba(42,26,18,.75)}
-  .btn-ghost{color:var(--choco);border:1.5px solid rgba(74,42,26,.3)}
-  .btn svg{width:18px;height:18px}
-  .hint{font-size:13px;color:var(--ink-soft);margin-top:12px}
-  /* os cookies na assadeira: cada um é um sabor e um botão */
-  .cookies{position:relative;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:clamp(10px,1.6vw,24px);align-items:center;justify-items:center}
-  .ck{all:unset;cursor:pointer;position:relative;width:100%;aspect-ratio:1;max-width:220px;border-radius:50%;
-      background:radial-gradient(circle at 38% 34%,#c99a63 0 22%,#a8723f 48%,#7d4e2a 78%,#5d381f 100%);
-      box-shadow:0 18px 22px -14px rgba(42,26,18,.55),0 2px 0 rgba(255,255,255,.18) inset;transition:transform .35s cubic-bezier(.16,1,.3,1)}
-  .ck:nth-child(2){transform:translate(12%,-8%) rotate(8deg)}
-  .ck:nth-child(4){transform:translate(-10%,6%)}
-  .ck:nth-child(6){transform:translate(8%,10%) rotate(-6deg)}
-  .ck:nth-child(8){transform:translate(-6%,-4%)}
-  .ck:hover,.ck:focus-visible{transform:scale(1.06) rotate(-3deg);z-index:2}
-  .ck:focus-visible{outline:3px solid var(--caramel);outline-offset:6px}
-  .ck .tag{position:absolute;left:50%;bottom:-10px;transform:translateX(-50%);white-space:nowrap;background:var(--cream);color:var(--choco);border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:600;box-shadow:0 6px 14px -8px rgba(42,26,18,.5)}
-  .ck .ph-note{position:absolute;inset:22%;display:grid;place-items:center;text-align:center;font-size:10.5px;line-height:1.25;color:rgba(247,239,226,.9);font-weight:500}
-  .ck.empty{background:none;box-shadow:none;border:1.5px dashed rgba(74,42,26,.18);cursor:default}
-  .ck.empty:hover{transform:none}
-  .ck.added::after{content:"+1";position:absolute;top:6%;right:6%;width:30px;height:30px;border-radius:50%;background:var(--caramel);color:var(--cream);font-weight:700;font-size:13px;display:grid;place-items:center}
-  /* ---------- seção seguinte ---------- */
-  .after{background:var(--cream);padding:clamp(64px,9vw,128px) clamp(16px,6vw,96px)}
-  .after h2{font:400 clamp(36px,4.6vw,64px)/1 "Shrikhand",serif;color:var(--choco);max-width:14ch;letter-spacing:-.015em}
-  .steps{margin-top:48px;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:clamp(16px,3vw,40px);align-items:end}
-  .steps p{color:var(--ink-soft);max-width:30ch}
-  .steps strong{display:block;color:var(--choco);font-size:20px;margin-bottom:6px}
-  .ph{border-radius:8px;background:#d9c09a;display:grid;place-items:center;text-align:center;padding:16px;color:#5b3b25;font-size:13px;line-height:1.35}
-  .ph.tall{aspect-ratio:4/5}
-  .sketch-flag{position:fixed;right:12px;bottom:12px;background:#fff8;backdrop-filter:blur(6px);color:#2a1a12;font:600 11px/1 "Albert Sans";padding:7px 10px;border-radius:6px;z-index:9}
-  @media (max-width:820px){
+  .copy{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:center;gap:28px}
+  .where{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:15px;color:var(--ink-soft)}
+  .where i{width:9px;height:9px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 4px rgba(230,90,63,.18)}
+  h1{font:400 clamp(56px,7.6vw,118px)/.92 "Shrikhand",serif;letter-spacing:-.02em;color:var(--choco);margin:16px 0 22px;text-wrap:balance}
+  .lede{max-width:32ch;font-size:clamp(18px,1.4vw,21px);color:var(--ink-soft)}
+  .lede strong{color:var(--choco)}
+  .actions{display:flex;flex-wrap:wrap;gap:12px}
+  .btn{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:17px 28px;font-weight:700;font-size:17px;text-decoration:none;cursor:pointer;border:0;font-family:inherit;transition:transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s}
+  .btn-main{background:var(--choco);color:var(--paper);box-shadow:0 12px 24px -14px rgba(43,24,16,.8)}
+  .btn-main:hover{transform:translateY(-2px);box-shadow:0 18px 30px -16px rgba(43,24,16,.85)}
+  .btn-ghost{color:var(--choco);background:transparent;box-shadow:inset 0 0 0 1.5px rgba(43,24,16,.35)}
+  .btn svg{width:19px;height:19px}
+
+  /* foto protagonista: o Nutella partido, como nos stories */
+  .hero-photo{position:relative;z-index:1;min-height:420px}
+  .hero-photo .main{position:absolute;inset:0 0 0 8%;border-radius:8px;overflow:hidden;box-shadow:0 30px 50px -30px rgba(43,24,16,.7)}
+  .hero-photo .main img{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+  .hero-photo .main .script{position:absolute;left:6%;top:4%;font-size:clamp(84px,9vw,150px);line-height:1;color:var(--butter);text-shadow:0 2px 18px rgba(43,24,16,.45)}
+  .hero-photo .chip{position:absolute;right:16px;bottom:16px;display:flex;align-items:center;gap:14px;background:var(--paper);border-radius:999px;padding:8px 8px 8px 20px;font-weight:600;font-size:15px;box-shadow:0 10px 20px -12px rgba(0,0,0,.6)}
+  .hero-photo .chip button{all:unset;cursor:pointer;background:var(--choco);color:var(--paper);border-radius:999px;padding:9px 16px;font-weight:700}
+  .hero-photo .side{position:absolute;left:0;bottom:-6%;width:34%;aspect-ratio:4/5;border-radius:8px;overflow:hidden;transform:rotate(-4deg);box-shadow:0 22px 34px -18px rgba(43,24,16,.75);border:6px solid var(--paper)}
+  .hero-photo .side img{width:100%;height:100%;object-fit:cover}
+
+  /* ---------- cardápio: a lousa dos stories, com pedido de verdade ---------- */
+  .menu{background:var(--choco);color:var(--paper);padding:clamp(72px,9vw,128px) clamp(16px,5vw,80px) 140px;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,5vw,80px)}
+  .menu-photo{position:sticky;top:24px;align-self:start;aspect-ratio:4/5;border-radius:8px;overflow:hidden;background:var(--choco-3)}
+  .menu-photo img{width:100%;height:100%;object-fit:cover;transition:opacity .35s ease}
+  .menu-photo .label{position:absolute;left:20px;bottom:18px;right:20px;font-size:15px;font-weight:600;color:var(--paper);text-shadow:0 1px 10px rgba(0,0,0,.6)}
+  .menu-photo .pending{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px;color:var(--on-choco-soft);font-size:15px}
+  .menu-photo .pending[hidden]{display:none}
+  .menu h2{font-size:clamp(88px,10vw,150px);line-height:.8;color:var(--butter);margin-bottom:8px}
+  .menu .sub{color:var(--on-choco-soft);margin-bottom:36px}
+  .rows{list-style:none}
+  .row{display:grid;grid-template-columns:1fr auto;gap:6px 20px;padding:18px 0;border-bottom:1px solid rgba(239,227,200,.14);cursor:default}
+  .row .name{display:flex;align-items:baseline;gap:14px;min-width:0;flex-wrap:wrap}
+  .row .name .script{font-size:clamp(40px,3.6vw,54px);line-height:1;color:var(--butter)}
+  .row .tagline{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#f08a6f}
+  .row p{grid-column:1;color:var(--on-choco-soft);font-size:16px;max-width:52ch}
+  .row .buy{grid-row:1 / span 2;grid-column:2;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:10px}
+  .row .price{font-weight:700;font-size:18px;font-variant-numeric:tabular-nums}
+  .step{display:flex;align-items:center;gap:4px;background:var(--choco-2);border-radius:999px;padding:4px}
+  .step button{all:unset;cursor:pointer;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:20px;font-weight:600;color:var(--paper)}
+  .step button:hover{background:var(--choco-3)}
+  .step button:focus-visible{outline:3px solid var(--coral)}
+  .step output{min-width:22px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+  .row.has .step{background:var(--butter);color:var(--choco)}
+  .row.has .step button{color:var(--choco)}
+  .row.has .step button:hover{background:rgba(43,24,16,.08)}
+  .row:hover .script{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:10px}
+  .deals{margin-top:40px;border:1px solid rgba(239,227,200,.25);border-radius:10px;padding:24px 28px}
+  .deals h3{font-size:44px;line-height:1;color:var(--butter);margin-bottom:12px}
+  .deals li{list-style:none;display:flex;align-items:baseline;gap:12px;padding:6px 0;font-weight:600;font-size:17px;font-variant-numeric:tabular-nums}
+  .deals li::after{content:"";order:2;flex:1;border-bottom:1px dotted rgba(239,227,200,.4)}
+  .deals li span:last-child{order:3}
+
+  /* pedido sempre à mão */
+  .order{position:fixed;left:50%;bottom:16px;transform:translateX(-50%) translateY(140%);z-index:20;width:min(760px,calc(100% - 32px));background:var(--paper);color:var(--choco);border-radius:999px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 8px 8px 24px;box-shadow:0 24px 44px -20px rgba(0,0,0,.7);transition:transform .45s cubic-bezier(.16,1,.3,1)}
+  .order.on{transform:translateX(-50%) translateY(0)}
+  .order .sum{font-weight:600;font-size:16px}
+  .order .sum small{display:block;font-size:14px;font-weight:500;color:var(--ink-soft)}
+  .order .btn{padding:14px 22px;font-size:16px}
+
+  /* ---------- a loja ---------- */
+  .store{background:var(--paper);padding:clamp(72px,9vw,128px) clamp(16px,5vw,80px);display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(24px,5vw,80px);align-items:center}
+  .store .ph{aspect-ratio:16/11;border-radius:8px;background:#dcc8a4;display:grid;place-items:center;text-align:center;padding:24px;color:var(--ink-soft);font-size:15px}
+  .store h2{font:400 clamp(40px,4.6vw,68px)/.98 "Shrikhand",serif;color:var(--choco);margin-bottom:20px;letter-spacing:-.015em}
+  .store p{color:var(--ink-soft);margin-bottom:24px;max-width:34ch}
+  .store address{font-style:normal;font-weight:600;color:var(--choco);font-size:19px;margin-bottom:24px}
+  footer{background:var(--choco);color:var(--on-choco-soft);padding:32px clamp(16px,5vw,80px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:15px}
+  .sketch-flag{position:fixed;right:12px;top:12px;background:rgba(255,255,255,.75);color:#2a1a12;font:600 12px/1 "Albert Sans";padding:7px 10px;border-radius:6px;z-index:30}
+
+  @media (max-width:860px){
     .rim nav{display:none}
-    .sheet{grid-template-columns:1fr;padding:24px 20px 28px}
-    .cookies{order:-1;grid-template-columns:repeat(3,1fr);grid-template-rows:auto;gap:10px}
-    .cookies .ck:nth-child(n+4){display:none}
-    h1{margin:12px 0 14px}
-    .steps{grid-template-columns:1fr}
+    .sheet{grid-template-columns:1fr;padding:22px 18px 26px;gap:24px}
+    .hero-photo{order:-1;min-height:0;aspect-ratio:1/1}
+    .hero-photo .main{inset:0 0 0 0}
+    .hero-photo .side{display:none}
+    .hero-photo .chip{left:12px;right:12px;bottom:12px;justify-content:space-between}
+    h1{margin:10px 0 14px}
+    .menu{grid-template-columns:1fr}
+    .menu-photo{display:none}
+    .store{grid-template-columns:1fr}
+    .order{border-radius:18px}
   }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
-<span class="sketch-flag">ESBOÇO A · Fornada</span>
+<span class="sketch-flag">ESBOÇO A · Fornada · v2</span>
+
 <section class="tray">
   <header class="rim">
-    <a class="logo" href="#">by gota</a>
-    <nav><a href="#">Sabores</a><a href="#">A loja</a><a href="#">Como pedir</a></nav>
-    <a class="bag" href="#" id="bag">Seu pedido <b id="count">0</b></a>
+    <a class="logo" href="#"><small>by</small><span class="script">Gota</span></a>
+    <nav><a href="#cardapio">Cardápio</a><a href="#loja">A loja</a><a href="#">Instagram</a></nav>
+    <a class="bag" href="#cardapio">Seu pedido <b id="count">0</b></a>
   </header>
 
   <div class="sheet">
     <div class="copy">
       <div>
-        <span class="stamp"><i></i>Fornada de hoje · saiu às [15h · a confirmar]</span>
+        <span class="where"><i></i>Rua Santo Antônio, 765 · Centro, Juiz de Fora</span>
         <h1>Gota a gota, feito à mão.</h1>
-        <p class="lede">Cookies grossos, crocantes por fora e derretendo por dentro. Toque nos cookies da assadeira para montar seu pedido.</p>
+        <p class="lede">Cookie grosso, recheio que escorre. <strong>Oito sabores, todos a R$ 14.</strong> Monte sua caixa aqui e o pedido chega pronto no WhatsApp.</p>
       </div>
-      <div>
-        <div class="actions">
-          <a class="btn btn-main" href="#">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 11.6a8.4 8.4 0 0 1-12.4 7.4L3.5 20.5l1.5-4.5a8.4 8.4 0 1 1 15.5-4.4Z"/></svg>
-            Enviar pedido no WhatsApp</a>
-          <a class="btn btn-ghost" href="#">Como chegar na loja</a>
-        </div>
-        <p class="hint">Sabores ilustrativos: os nomes e preços reais entram quando a loja enviar.</p>
+      <div class="actions">
+        <a class="btn btn-main" href="#cardapio">Montar meu pedido</a>
+        <a class="btn btn-ghost" href="#loja">Como chegar</a>
       </div>
     </div>
 
-    <div class="cookies" aria-label="Assadeira de hoje">
-      <button class="ck"><span class="ph-note">FOTO: cookie visto de cima, gotas aparentes</span><span class="tag">Clássico de gotas</span></button>
-      <button class="ck"><span class="ph-note">FOTO: cookie partido, recheio escorrendo</span><span class="tag">Avelã</span></button>
-      <button class="ck empty" tabindex="-1" aria-hidden="true"></button>
-      <button class="ck"><span class="ph-note">FOTO: massa escura, pedaços de cacau</span><span class="tag">Double choco</span></button>
-      <button class="ck"><span class="ph-note">FOTO: caramelo salgado brilhando</span><span class="tag">Caramelo &amp; flor de sal</span></button>
-      <button class="ck"><span class="ph-note">FOTO: chocolate branco e frutas vermelhas</span><span class="tag">Red velvet</span></button>
-      <button class="ck empty" tabindex="-1" aria-hidden="true"></button>
-      <button class="ck"><span class="ph-note">FOTO: doce de leite, textura rachada</span><span class="tag">Doce de leite</span></button>
-      <button class="ck"><span class="ph-note">FOTO: pistache verde aparente</span><span class="tag">Pistache</span></button>
+    <div class="hero-photo">
+      <figure class="main">
+        <img src="fotos/nutella.jpg" alt="Cookie de Nutella partido ao meio, com o recheio escorrendo">
+        <span class="script" aria-hidden="true">Nutella</span>
+        <div class="chip">Queridinho de muitos · R$ 14 <button type="button" data-add="Nutella">Adicionar</button></div>
+      </figure>
+      <figure class="side"><img src="fotos/tradicional.jpg" alt="Cookie Tradicional sobre uma boleira branca"></figure>
     </div>
   </div>
 </section>
 
-<section class="after">
-  <h2>Escolha, mande, passe para buscar.</h2>
-  <div class="steps">
-    <div class="ph tall">FOTO: mãos segurando a caixa By Gota aberta, 6 cookies, luz de janela</div>
-    <div><strong>Pelo WhatsApp</strong><p>Seu pedido chega pronto na conversa: é só confirmar o horário de retirada.</p></div>
-    <div><strong>Na loja</strong><p>Rua Santo Antônio, 765, Centro, Juiz de Fora (horário a confirmar). A fornada do dia fica na assadeira, no balcão.</p></div>
+<section class="menu" id="cardapio">
+  <figure class="menu-photo" aria-hidden="true">
+    <img id="mp" src="fotos/kinder-bueno.jpg" alt="">
+    <span class="pending" id="mpp" hidden>Foto a enviar</span>
+    <figcaption class="label" id="mpl">Kinder Bueno</figcaption>
+  </figure>
+  <div>
+    <h2 class="script">Cardápio</h2>
+    <p class="sub">Todos os cookies a R$ 14. Leve mais e pague menos.</p>
+    <ul class="rows" id="rows"></ul>
+    <div class="deals">
+      <h3 class="script">Preços especiais</h3>
+      <ul>
+        <li><span>4 unidades</span><span>R$ 54</span></li>
+        <li><span>5 unidades</span><span>R$ 65</span></li>
+        <li><span>6 unidades</span><span>R$ 77</span></li>
+      </ul>
+    </div>
   </div>
 </section>
+
+<section class="store" id="loja">
+  <div class="ph">FOTO A ENVIAR: a fachada ou o balcão da loja, de frente, luz quente</div>
+  <div>
+    <h2>Passa aqui, sai quentinho.</h2>
+    <address>Rua Santo Antônio, 765<br>Centro, Juiz de Fora (MG)</address>
+    <p>Horário de funcionamento: [a confirmar, está nos destaques do Instagram].</p>
+    <a class="btn btn-main" href="#">Abrir no mapa</a>
+  </div>
+</section>
+<footer><span>By Gota · seus doces favoritos</span><span>@by.gota</span></footer>
+
+<div class="order" id="order" role="region" aria-live="polite" aria-label="Seu pedido">
+  <span class="sum" id="sum">0 cookies</span>
+  <a class="btn btn-main" id="send" href="#">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 11.6a8.4 8.4 0 0 1-12.4 7.4L3.5 20.5l1.5-4.5a8.4 8.4 0 1 1 15.5-4.4Z"/></svg>
+    Enviar no WhatsApp</a>
+</div>
 
 <script>
-  let n=0;const c=document.getElementById('count');
-  document.querySelectorAll('.ck:not(.empty)').forEach(b=>b.addEventListener('click',()=>{n++;c.textContent=n;b.classList.remove('added');void b.offsetWidth;b.classList.add('added')}));
+const FLAVORS=[
+  {n:"Tradicional",t:"O clássico",d:"Massa aromatizada de baunilha com muita gota de chocolate.",img:"tradicional"},
+  {n:"Nutella",t:"Queridinho de muitos",d:"Massa de baunilha com gota de chocolate e recheio de Nutella.",img:"nutella"},
+  {n:"Kinder Bueno",t:"Um sucesso",d:"Massa de baunilha, muito chocolate branco e ao leite, recheio de Kinder com avelã torrada.",img:"kinder-bueno"},
+  {n:"Pistache",t:"Trending",d:"Massa de baunilha com farofa de pistache, chocolate branco e recheio de pistache torrado com ganache de chocolate branco.",img:"pistache"},
+  {n:"Chocolate Triplo",t:"",d:"[Descrição a confirmar]",img:null},
+  {n:"Red Velvet",t:"Atemporal",d:"Massa especial de red velvet, chocolate branco e recheio de Ninho caramelizado com cream cheese.",img:"red-velvet"},
+  {n:"Caramelo Salgado",t:"",d:"[Descrição a confirmar]",img:null},
+  {n:"Especial da Semana",t:"Muda toda semana",d:"Pergunte no WhatsApp qual é o desta semana.",img:null},
+];
+const qty={};FLAVORS.forEach(f=>qty[f.n]=0);
+const rows=document.getElementById('rows');
+rows.innerHTML=FLAVORS.map(f=>`<li class="row" data-n="${f.n}">
+  <div class="name"><span class="script">${f.n}</span>${f.t?`<span class="tagline">${f.t}</span>`:''}</div>
+  <p>${f.d}</p>
+  <div class="buy"><span class="price">R$ 14</span>
+    <div class="step"><button type="button" data-sub aria-label="Tirar ${f.n}">−</button><output>0</output><button type="button" data-plus aria-label="Adicionar ${f.n}">+</button></div></div>
+</li>`).join('');
+// melhor preço com as combinações oficiais
+const PACKS=[[1,14],[4,54],[5,65],[6,77]];
+function best(n){const c=[0];for(let i=1;i<=n;i++){c[i]=Infinity;for(const[k,p]of PACKS)if(i>=k)c[i]=Math.min(c[i],c[i-k]+p)}return c[n]}
+const brl=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+function render(){
+  let n=0;const parts=[];
+  for(const f of FLAVORS){const q=qty[f.n];n+=q;if(q)parts.push(`${q} ${f.n}`);
+    const r=rows.querySelector(`[data-n="${f.n}"]`);r.querySelector('output').textContent=q;r.classList.toggle('has',q>0)}
+  document.getElementById('count').textContent=n;
+  const full=n*14,price=best(n);
+  document.getElementById('sum').innerHTML=n?`${n} ${n>1?'cookies':'cookie'} · ${brl(price)}<small>${price<full?`Economia de ${brl(full-price)} · `:''}${parts.join(', ')}</small>`:'0 cookies';
+  document.getElementById('order').classList.toggle('on',n>0);
+  const msg=`Oi, Gota! Quero pedir: ${parts.join(', ')}. Total ${brl(price)}.`;
+  document.getElementById('send').href='https://wa.me/55XXXXXXXXXXX?text='+encodeURIComponent(msg); // número completo a confirmar
+}
+rows.addEventListener('click',e=>{const r=e.target.closest('.row');if(!r)return;const n=r.dataset.n;
+  if(e.target.closest('[data-plus]'))qty[n]++;else if(e.target.closest('[data-sub]'))qty[n]=Math.max(0,qty[n]-1);else return;render()});
+document.querySelectorAll('[data-add]').forEach(b=>b.addEventListener('click',()=>{qty[b.dataset.add]++;render()}));
+// assinatura: passar pelo sabor troca a foto grande
+const mp=document.getElementById('mp'),mpl=document.getElementById('mpl'),mpp=document.getElementById('mpp');
+rows.addEventListener('pointerover',e=>{const r=e.target.closest('.row');if(!r)return;const f=FLAVORS.find(x=>x.n===r.dataset.n);
+  mpl.textContent=f.n;if(f.img){mp.style.opacity=0;setTimeout(()=>{mp.src=`fotos/${f.img}.jpg`;mp.style.opacity=1},150);mpp.hidden=true}else{mp.style.opacity=0;mpp.hidden=false}});
+render();
 </script>
 </body>
 </html>

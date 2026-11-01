@@ -15,7 +15,7 @@
   a{color:inherit}
   .hero{display:grid;grid-template-columns:7fr 5fr;min-height:100svh}
   .photo{background:#b98a5c;display:grid;place-items:center;text-align:center;padding:32px;color:#2a170e;font-size:15px;font-weight:500;line-height:1.4;position:relative}
-  .photo nav{position:absolute;top:24px;left:clamp(16px,3vw,48px);right:24px;display:flex;justify-content:space-between;align-items:center;color:var(--cream)}
+  .photo nav{position:absolute;top:0;left:0;right:0;padding:24px clamp(16px,3vw,48px);background:linear-gradient(rgba(36,21,14,.7),transparent);display:flex;justify-content:space-between;align-items:center;color:var(--cream)}
   .logo{font:400 30px/1 "Gloock";text-decoration:none}
   .photo nav div{display:flex;gap:28px;font-size:15px;font-weight:500}
   .photo nav div a{text-decoration:none}
@@ -38,9 +38,8 @@
 <body>
 <span class="sketch-flag">ESBOÇO C · Clássico premium</span>
 <section class="hero">
-  <div class="photo">
+  <div class="photo" style="background:url(fotos/nutella.jpg) center/cover">
     <nav><a class="logo" href="#">By Gota</a><div><a href="#">Sabores</a><a href="#">A loja</a><a href="#">Pedir</a></div></nav>
-    FOTO PROTAGONISTA: cookie partido ao meio, chocolate derretendo,<br>close-up, luz natural quente, fundo neutro
   </div>
   <div class="side">
     <h1>Cookies artesanais, feitos para desejar.</h1>
@@ -52,10 +51,10 @@
 <section class="flavors">
   <h2>Os sabores</h2>
   <div class="grid">
-    <div class="card"><div class="ph">FOTO: clássico de gotas</div><h3>Clássico de gotas</h3><p>R$ [a confirmar]</p></div>
-    <div class="card"><div class="ph">FOTO: avelã, partido</div><h3>Avelã</h3><p>R$ [a confirmar]</p></div>
-    <div class="card"><div class="ph">FOTO: double choco</div><h3>Double choco</h3><p>R$ [a confirmar]</p></div>
-    <div class="card"><div class="ph">FOTO: caramelo salgado</div><h3>Caramelo salgado</h3><p>R$ [a confirmar]</p></div>
+    <div class="card"><div class="ph" style="background:url(fotos/tradicional.jpg) center/cover"></div><h3>Tradicional</h3><p>R$ 14</p></div>
+    <div class="card"><div class="ph" style="background:url(fotos/kinder-bueno.jpg) center/cover"></div><h3>Kinder Bueno</h3><p>R$ 14</p></div>
+    <div class="card"><div class="ph" style="background:url(fotos/pistache.jpg) 50% 88%/cover"></div><h3>Pistache</h3><p>R$ 14</p></div>
+    <div class="card"><div class="ph" style="background:url(fotos/red-velvet.jpg) center/cover"></div><h3>Red Velvet</h3><p>R$ 14</p></div>
   </div>
 </section>
 </body>
