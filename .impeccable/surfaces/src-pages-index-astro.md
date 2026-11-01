@@ -12,6 +12,13 @@ primary_target: "src/pages/index.astro"
 related_targets: []
 ---
 
+---
+version: 1
+slug: "src-pages-index-astro"
+primary_target: "src/pages/index.astro"
+related_targets: []
+---
+
 # Surface brief: home (página inicial)
 
 Scope: the By Gota home page. Visitor mode: Persuade.
@@ -25,7 +32,7 @@ Memorable moment: the flavor's name writes itself in the brand script over the p
 
 THESIS: The page is today's batch at the Gota kiosk: cookies under the striped awning, ordered at the counter. It refuses the category default of a hero photo over a grid of equal product cards.
 
-OWN-WORLD: The Gota kiosk carried onto the page: a blue and cream striped awning with a scalloped edge under the header, cream panels, the red script "Gota" wordmark, chunky italic display headlines in kiosk red; the menu as the coral striped board of the client's menu story with butter-yellow script names and dot leaders; the order as a cream box; chocolate only as text and the dark photo frames; baby blue for stripes, meter and small accents.
+OWN-WORLD: The Gota kiosk carried onto the page: a blue and cream striped awning with a scalloped edge under the header, cream panels, the red script "Gota" wordmark, chunky italic display headlines in kiosk red; the menu as a baby-blue striped board (client choice) with red script names and dot leaders; the order as a cream box; chocolate only as text and the dark photo frames; baby blue for stripes, meter and small accents.
 
 STORY: The visitor sees the hero cookie and its name written by hand, flips through flavors, adds cookies that fly into the box, watches the price drop at 4, 5 and 6, and sends the order or walks to Rua Santo Antônio, 765.
 
