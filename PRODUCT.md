@@ -33,7 +33,7 @@ A premium, artisanal cookie brand with a strong identity of its own: a boutique 
 ## Capabilities and Constraints
 
 - The site must link to WhatsApp ordering and show how to find the physical store.
-- Store address (from Instagram bio): Rua Santo Antônio, 765 - Centro, Juiz de Fora - MG.
+- Store address (from Instagram bio): Rua Santo Antônio, 765 - Centro, Juiz de Fora - MG. The kiosk's sidewalk sign reads "R. Santo Antônio, 705": the number is unconfirmed.
 - Orders: WhatsApp link (wa.me/553..., full number not captured yet).
 - Menu (Instagram "cardápio" story, 3 June; see `docs/referencias/cardapio-story.jpg`), every cookie R$ 14:
   - Tradicional: "o clássico", vanilla dough with lots of chocolate chips.
@@ -51,7 +51,7 @@ A premium, artisanal cookie brand with a strong identity of its own: a boutique 
 ## Brand Commitments
 
 - Name: **By Gota** (written "BY GOTA" in the brief); Instagram @by.gota, profile name "GOTA", bio "seus doces favoritos".
-- Existing identity on Instagram (incumbent brand, see screenshot in `docs/referencias/instagram-by-gota.jpg`): a script "Gota" wordmark in coral red on a light blue circle; highlight covers in coral red, baby blue, cream and dark chocolate, with hand-printed textures (cookie prints, checkerboard, dots, stripes); boxes printed with coral/blue/cream polka dots. This partly conflicts with the brief's chocolate/cream/caramel, low-saturation palette: the resolution is an open decision for the client.
+- Existing identity on Instagram (incumbent brand, see screenshot in `docs/referencias/instagram-by-gota.jpg`): a script "Gota" wordmark in coral red on a light blue circle; highlight covers in coral red, baby blue, cream and dark chocolate, with hand-printed textures (cookie prints, checkerboard, dots, stripes); boxes printed with coral/blue/cream polka dots. Decision (client, 2026-11-01): the website uses the coral and baby-blue identity of the kiosk and Instagram, over the brief's chocolate/caramel palette. Chocolate stays as the dark accent and text color. The storefront kiosk (see `src/assets/fotos/fachada.jpg`) has a blue and cream striped awning with a scalloped edge, cream panels, and the red script "Gota" wordmark.
 - Instagram flavor stories: each flavor named in a large monoline script in butter yellow, over chocolate checkerboard, coral stripes, or pale yellow-green with cookie-print texture; a short uppercase caption with a one-word label ("O CLÁSSICO", "TRENDING", "ATEMPORAL").
 - Voice on Instagram: playful and self-aware humor (e.g. "o que eu quero: corpo definido / cookie de kinder ..."), close to the customer.
 - The client supplied a binding visual direction brief, kept verbatim at `docs/direcao-visual.md`. It pins the aesthetic (contemporary artisanal patisserie, sophisticated minimalism), the palette family (chocolate brown, cream, buttery beige, caramel, cocoa), a display-plus-sans type pairing, photography as the lead element, layout language, personality, and an explicit avoid list. Visual decisions follow that file; DESIGN.md will turn it into a system.
