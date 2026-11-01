@@ -2,9 +2,10 @@
   --cream: #f7f0e4;     /* fundo, painéis do quiosque */
   --panel: #fffaf2;
   --red: #c8361f;       /* vermelho do letreiro Gota (seguro para texto) */
-  --board: #b8341f;     /* lousa coral do cardápio */
-  --board-2: #ae301b;
-  --on-board: #fff1e8;
+  --board: #8fc6ea;     /* lousa azul-bebê do cardápio */
+  --board-2: #9ccdee;
+  --on-board: #2b1810;
+  --on-red: #fff1e8;
   --blue: #8fc6ea;      /* azul do toldo */
   --blue-soft: #d9edf9;
   --blue-ink: #2a6a96;
@@ -172,40 +173,40 @@ h1 {
 .ms-caption[hidden] { display: none; }
 .ms-caption { position: absolute; z-index: 1; left: 22px; bottom: 14px; font-size: 54px; line-height: 1; color: var(--butter); text-shadow: 0 2px 14px rgba(0,0,0,.6); }
 
-.menu-list h2 { font-size: clamp(96px, 10vw, 156px); line-height: .8; color: var(--butter); }
+.menu-list h2 { font-size: clamp(96px, 10vw, 156px); line-height: .8; color: var(--red); }
 .menu-sub { color: var(--on-board); margin: 14px 0 32px; }
 .rows { list-style: none; }
 .row {
   display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 18px 22px; padding: 18px 0;
-  border-bottom: 1px solid rgba(255,241,232,.25); outline: none;
+  border-bottom: 1px solid rgba(43,24,16,.16); outline: none;
 }
 .row-thumb { display: none; width: 64px; height: 64px; border-radius: 50%; overflow: hidden; background: var(--choco-3); place-items: center; }
 .row-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .row-thumb .script { font-size: 40px; color: var(--butter); line-height: 1; }
 .row h3 { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 14px; font-weight: 400; }
-.row h3::after { content: ""; order: 2; flex: 1 1 40px; align-self: center; border-bottom: 2px dotted rgba(255,241,232,.5); margin-top: 14px; }
+.row h3::after { content: ""; order: 2; flex: 1 1 40px; align-self: center; border-bottom: 2px dotted rgba(43,24,16,.35); margin-top: 14px; }
 .row h3 .row-price { order: 3; font-family: "Albert Sans", sans-serif; }
-.deals { margin-top: 48px; border: 1.5px solid rgba(255,241,232,.55); border-radius: 12px; padding: 26px 30px; max-width: 560px; }
-.deals h3 { font-size: 52px; line-height: 1; color: var(--butter); margin-bottom: 10px; font-weight: 400; }
+.deals { margin-top: 48px; background: var(--panel); border: 0; border-radius: 12px; padding: 26px 30px; max-width: 560px; }
+.deals h3 { font-size: 52px; line-height: 1; color: var(--red); margin-bottom: 10px; font-weight: 400; }
 .deals ul { list-style: none; }
 .deals li { display: flex; align-items: baseline; gap: 12px; padding: 7px 0; font-weight: 600; font-size: 18px; font-variant-numeric: tabular-nums; }
-.deals li::after { content: ""; order: 2; flex: 1; border-bottom: 2px dotted rgba(255,241,232,.5); }
-.deals li span:last-child { order: 3; color: var(--butter); }
-.row h3 .script { font-size: clamp(42px, 3.6vw, 56px); line-height: 1.05; color: var(--butter); transition: transform .4s var(--ease); transform-origin: left; }
+.deals li::after { content: ""; order: 2; flex: 1; border-bottom: 2px dotted rgba(43,24,16,.3); }
+.deals li span:last-child { order: 3; color: var(--red); }
+.row h3 .script { font-size: clamp(42px, 3.6vw, 56px); line-height: 1.05; color: var(--red); transition: transform .4s var(--ease); transform-origin: left; }
 .row:hover h3 .script { transform: translateX(6px); }
-.selo { font-size: 15px; font-weight: 700; color: var(--butter); }
+.selo { font-size: 15px; font-weight: 700; color: #1d4a6c; }
 .row p { color: var(--on-board); font-size: 16px; max-width: 54ch; margin-top: 2px; }
 .row-buy { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
 .row-price { font-weight: 700; font-size: 18px; font-variant-numeric: tabular-nums; }
-.step { display: flex; align-items: center; gap: 2px; background: rgba(43,24,16,.22); border-radius: 999px; padding: 4px; transition: background .3s var(--ease); }
+.step { display: flex; align-items: center; gap: 2px; background: rgba(255,250,242,.7); border-radius: 999px; padding: 4px; transition: background .3s var(--ease); }
 .step button { all: unset; cursor: pointer; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; color: var(--on-board); transition: background .2s; }
 .step button svg { width: 20px; height: 20px; }
-.step button:hover { background: rgba(43,24,16,.25); }
-.step button:focus-visible { outline: 3px solid var(--butter); }
+.step button:hover { background: rgba(43,24,16,.08); }
+.step button:focus-visible { outline: 3px solid var(--red); }
 .step output { min-width: 26px; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums; }
-.row.has .step { background: var(--butter); color: var(--choco); }
-.row.has .step button { color: var(--choco); }
-.row.has .step button:hover { background: rgba(43,24,16,.08); }
+.row.has .step { background: var(--red); color: var(--on-red); }
+.row.has .step button { color: var(--on-red); }
+.row.has .step button:hover { background: rgba(0,0,0,.12); }
 
 /* ---------- a caixa ---------- */
 .box-section { background: var(--cream); padding: clamp(72px, 9vw, 136px) var(--gutter); }
@@ -274,7 +275,7 @@ h1 {
 .store address { font-style: normal; font-weight: 700; font-size: clamp(20px, 1.8vw, 24px); display: grid; margin: 22px 0 8px; }
 .store p { color: var(--ink-soft); }
 
-.foot { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px 24px; padding: 28px var(--gutter); background: var(--red); color: var(--on-board); font-size: 15px; }
+.foot { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px 24px; padding: 28px var(--gutter); background: var(--red); color: var(--on-red); font-size: 15px; }
 .foot .script { font-size: 48px; line-height: .8; color: var(--panel); }
 .foot a { color: var(--panel); }
 
@@ -282,11 +283,11 @@ h1 {
 .dock {
   position: fixed; left: 50%; bottom: 16px; z-index: 45; transform: translate(-50%, 160%);
   display: flex; align-items: center; gap: 16px; padding: 8px 8px 8px 22px; border-radius: 999px; text-decoration: none;
-  background: var(--blue); color: var(--choco); font-weight: 700; box-shadow: 0 20px 40px -16px rgba(43,24,16,.55);
+  background: var(--red); color: var(--on-red); font-weight: 700; box-shadow: 0 20px 40px -16px rgba(43,24,16,.55);
   transition: transform .5s var(--ease);
 }
 .dock.on { transform: translate(-50%, 0); }
-.dock-cta { background: var(--red); color: var(--panel); border-radius: 999px; padding: 11px 18px; }
+.dock-cta { background: var(--panel); color: var(--red); border-radius: 999px; padding: 11px 18px; }
 
 /* ---------- telas menores ---------- */
 @media (max-width: 1100px) {
