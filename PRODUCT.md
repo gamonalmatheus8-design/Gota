@@ -28,24 +28,29 @@ A premium, artisanal cookie brand with a strong identity of its own: a boutique 
 
 - Sales channels: the physical store and orders through WhatsApp.
 - No online cart or checkout on the site.
-- Instagram is the brand's existing photo source and the likely entry point for visitors.
+- Instagram (@by.gota) is the brand's existing photo source and the main entry point for visitors; its highlights include horários, club (a loyalty or subscription program, details unknown), cardápio and reviews.
 
 ## Capabilities and Constraints
 
 - The site must link to WhatsApp ordering and show how to find the physical store.
-- Undecided / missing (must not be invented): flavor list, descriptions, prices, store address, opening hours, WhatsApp number, Instagram handle, brand story.
+- Store address (from Instagram bio): Rua Santo Antônio, 765 - Centro, Juiz de Fora - MG.
+- Orders: WhatsApp link (wa.me/553..., full number not captured yet).
+- Undecided / missing (must not be invented): full flavor list, descriptions, prices, opening hours (an Instagram highlight "horários" exists), full WhatsApp number, brand story.
 - Until those facts arrive, copy uses clearly marked placeholders (`[a confirmar]`).
 
 ## Brand Commitments
 
-- Name: **By Gota** (written "BY GOTA" in the brief).
+- Name: **By Gota** (written "BY GOTA" in the brief); Instagram @by.gota, profile name "GOTA", bio "seus doces favoritos".
+- Existing identity on Instagram (incumbent brand, see screenshot in `docs/referencias/instagram-by-gota.jpg`): a script "Gota" wordmark in coral red on a light blue circle; highlight covers in coral red, baby blue, cream and dark chocolate, with hand-printed textures (cookie prints, checkerboard, dots, stripes); boxes printed with coral/blue/cream polka dots. This partly conflicts with the brief's chocolate/cream/caramel, low-saturation palette: the resolution is an open decision for the client.
+- Voice on Instagram: playful and self-aware humor (e.g. "o que eu quero: corpo definido / cookie de kinder ..."), close to the customer.
 - The client supplied a binding visual direction brief, kept verbatim at `docs/direcao-visual.md`. It pins the aesthetic (contemporary artisanal patisserie, sophisticated minimalism), the palette family (chocolate brown, cream, buttery beige, caramel, cocoa), a display-plus-sans type pairing, photography as the lead element, layout language, personality, and an explicit avoid list. Visual decisions follow that file; DESIGN.md will turn it into a system.
 - Personality: cozy, high quality, creative, exclusive, flavorful, authentic. Young without being childish, sophisticated without being cold, handmade without being amateur.
 - Language: Brazilian Portuguese.
 
 ## Evidence on Hand
 
-- Photography: the client asked to use photos from the brand's Instagram. The handle has not been provided yet, and no image files are in the repository.
+- Photography: the client asked to use photos from the brand's Instagram (@by.gota, 156 posts). This environment cannot download from Instagram, so the image files must be sent by the client. Posts show chunky stuffed cookies, filled cookies with chocolate pieces, the polka-dot boxes, and people eating cookies (UGC-style videos).
+- Social proof that exists: about 11 thousand Instagram followers; a "reviews" highlight (content not captured).
 - No testimonials, press, customer counts, awards, or prices are on hand. Do not fabricate any of them.
 
 ## Product Principles

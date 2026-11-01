@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>By Gota — Esboço C: Clássico premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Albert+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--cream:#f6eee1;--butter:#e9d7b8;--choco:#3d2418;--cocoa:#24150e;--caramel:#b8742f;--ink-soft:#6c4c39}
+  *{box-sizing:border-box;margin:0;padding:0}
+  ::selection{background:var(--caramel);color:var(--cream)}
+  body{background:var(--cream);color:var(--choco);font:400 17px/1.55 "Albert Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .hero{display:grid;grid-template-columns:7fr 5fr;min-height:100svh}
+  .photo{background:#b98a5c;display:grid;place-items:center;text-align:center;padding:32px;color:#2a170e;font-size:15px;font-weight:500;line-height:1.4;position:relative}
+  .photo nav{position:absolute;top:24px;left:clamp(16px,3vw,48px);right:24px;display:flex;justify-content:space-between;align-items:center;color:var(--cream)}
+  .logo{font:400 30px/1 "Gloock";text-decoration:none}
+  .photo nav div{display:flex;gap:28px;font-size:15px;font-weight:500}
+  .photo nav div a{text-decoration:none}
+  .side{display:flex;flex-direction:column;justify-content:center;padding:clamp(32px,5vw,88px)}
+  h1{font:400 clamp(48px,5.6vw,92px)/.98 "Gloock";letter-spacing:-.02em;margin-bottom:24px}
+  .side p{color:var(--ink-soft);max-width:32ch;margin-bottom:36px;font-size:19px}
+  .btn{align-self:flex-start;display:inline-flex;gap:10px;align-items:center;background:var(--choco);color:var(--cream);text-decoration:none;font-weight:700;border-radius:999px;padding:16px 26px}
+  .btn svg{width:18px;height:18px}
+  .link{margin-top:18px;font-weight:600;text-underline-offset:5px}
+  .flavors{padding:clamp(72px,9vw,128px) clamp(16px,4vw,64px)}
+  .flavors h2{font:400 clamp(36px,4vw,56px)/1 "Gloock";margin-bottom:40px}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  .card .ph{aspect-ratio:1;border-radius:10px;background:var(--butter);display:grid;place-items:center;text-align:center;padding:14px;color:var(--ink-soft);font-size:13px;margin-bottom:14px}
+  .card h3{font:400 22px/1.1 "Gloock"}
+  .card p{color:var(--ink-soft);font-size:15px}
+  .sketch-flag{position:fixed;right:12px;bottom:12px;background:#fff8;backdrop-filter:blur(6px);color:#2a1a12;font:600 11px/1 "Albert Sans";padding:7px 10px;border-radius:6px;z-index:9}
+  @media (max-width:820px){.hero{grid-template-columns:1fr}.photo{min-height:58svh}.photo nav div{display:none}.grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<span class="sketch-flag">ESBOÇO C · Clássico premium</span>
+<section class="hero">
+  <div class="photo">
+    <nav><a class="logo" href="#">By Gota</a><div><a href="#">Sabores</a><a href="#">A loja</a><a href="#">Pedir</a></div></nav>
+    FOTO PROTAGONISTA: cookie partido ao meio, chocolate derretendo,<br>close-up, luz natural quente, fundo neutro
+  </div>
+  <div class="side">
+    <h1>Cookies artesanais, feitos para desejar.</h1>
+    <p>Massa grossa, gotas generosas e recheio que derrete. Feitos à mão, todo dia.</p>
+    <a class="btn" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 11.6a8.4 8.4 0 0 1-12.4 7.4L3.5 20.5l1.5-4.5a8.4 8.4 0 1 1 15.5-4.4Z"/></svg>Pedir pelo WhatsApp</a>
+    <a class="link" href="#">Visitar a loja →</a>
+  </div>
+</section>
+<section class="flavors">
+  <h2>Os sabores</h2>
+  <div class="grid">
+    <div class="card"><div class="ph">FOTO: clássico de gotas</div><h3>Clássico de gotas</h3><p>R$ [a confirmar]</p></div>
+    <div class="card"><div class="ph">FOTO: avelã, partido</div><h3>Avelã</h3><p>R$ [a confirmar]</p></div>
+    <div class="card"><div class="ph">FOTO: double choco</div><h3>Double choco</h3><p>R$ [a confirmar]</p></div>
+    <div class="card"><div class="ph">FOTO: caramelo salgado</div><h3>Caramelo salgado</h3><p>R$ [a confirmar]</p></div>
+  </div>
+</section>
+</body>
+</html>
