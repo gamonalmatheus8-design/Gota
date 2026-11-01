@@ -32,11 +32,11 @@ export type Sabor = {
 };
 
 export const sabores: Sabor[] = [
-  { nome: 'Tradicional', selo: 'O clássico', descricao: 'Massa aromatizada de baunilha com muita gota de chocolate.', foto: 'tradicional', fotoPosicao: '50% 30%' },
+  { nome: 'Tradicional', selo: 'O clássico', descricao: 'Massa aromatizada de baunilha com muita gota de chocolate.', foto: 'tradicional', fotoPosicao: '50% 50%' },
   { nome: 'Nutella', selo: 'Queridinho de muitos', descricao: 'Massa de baunilha com gota de chocolate e recheio de Nutella.', foto: 'nutella', fotoPosicao: '50% 45%' },
   { nome: 'Kinder Bueno', selo: 'Um sucesso', descricao: 'Massa de baunilha, muito chocolate branco e ao leite, com recheio de Kinder e avelã torrada.', foto: 'kinder-bueno' },
   { nome: 'Pistache', selo: 'Trending', descricao: 'Massa de baunilha com farofa de pistache, chocolate branco e recheio de pistache torrado com ganache de chocolate branco.', foto: 'pistache', fotoPosicao: '50% 45%' },
-  { nome: 'Red Velvet', selo: 'Atemporal', descricao: 'Massa especial de red velvet, chocolate branco e recheio de Ninho caramelizado com cream cheese.', foto: 'red-velvet' },
+  { nome: 'Red Velvet', selo: 'Atemporal', descricao: 'Massa especial de red velvet, chocolate branco e recheio de Ninho caramelizado com cream cheese.', foto: 'red-velvet', fotoPosicao: '50% 50%' },
   // PENDENTE: descrição e foto.
   { nome: 'Chocolate Triplo', descricao: '[Descrição a confirmar]' },
   // PENDENTE: descrição e foto.
