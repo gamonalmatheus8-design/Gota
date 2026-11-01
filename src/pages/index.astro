@@ -12,12 +12,14 @@ import { loja, sabores, combos, precoUnitario } from '../data/loja';
 
 const fotos = import.meta.glob<{ default: ImageMetadata }>('../assets/fotos/*.jpg', { eager: true });
 const foto = (nome?: string) => (nome ? fotos[`../assets/fotos/${nome}.jpg`]?.default : undefined);
+const recortes = import.meta.glob<{ default: ImageMetadata }>('../assets/recortes/*.jpg', { eager: true });
+const recorte = (nome?: string) => (nome ? recortes[`../assets/recortes/${nome}.jpg`]?.default : undefined);
 const slug = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, '-');
 
 const comFoto = sabores.filter((s) => s.foto);
 const thumbs: Record<string, string> = {};
 for (const s of comFoto) {
-  const t = await getImage({ src: foto(s.foto)!, width: 200, height: 200, fit: 'cover', format: 'webp' });
+  const t = await getImage({ src: recorte(s.foto)!, width: 200, height: 200, format: 'webp' });
   thumbs[s.nome] = t.src;
 }
 const config = {
@@ -65,13 +67,13 @@ const iconPlus = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v12M
     <section class="tray" aria-labelledby="titulo">
       <div class="sheet">
         <div class="copy">
-          <p class="where"><i aria-hidden="true"></i>{loja.endereco} · Centro, Juiz de Fora</p>
           <h1 id="titulo">Gota a gota, feito à mão.</h1>
           <p class="lede">Cookie grosso, recheio que escorre. <strong>Oito sabores, todos a R$&nbsp;14.</strong> Monte sua caixa aqui e leve 4, 5 ou 6 por menos.</p>
           <div class="actions">
             <a class="btn btn-main" href="#cardapio">Montar minha caixa</a>
             <a class="btn btn-ghost" href="#loja">Como chegar</a>
           </div>
+          <p class="where"><i aria-hidden="true"></i>{loja.endereco} · Centro, Juiz de Fora</p>
         </div>
 
         <div class="stage" id="stage" aria-roledescription="carrossel" aria-label="Sabores em destaque">
@@ -83,10 +85,7 @@ const iconPlus = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v12M
             ))}
             <svg class="handwrite" viewBox="0 0 600 170" aria-hidden="true"><text x="18" y="128" id="hw-text">Nutella</text></svg>
             <div class="stage-card">
-              <div>
-                <p class="stage-selo" id="stage-selo">Queridinho de muitos</p>
-                <p class="stage-price">R$ 14</p>
-              </div>
+              <p class="stage-price">R$ 14 <span class="stage-selo" id="stage-selo">· Queridinho de muitos</span></p>
               <button type="button" class="btn btn-main btn-add" id="stage-add" data-nome="Nutella">
                 <span set:html={iconPlus} class="ico"></span><span id="stage-add-label">Adicionar</span>
               </button>
@@ -95,7 +94,7 @@ const iconPlus = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v12M
           <div class="chips" role="tablist" aria-label="Escolher sabor">
             {comFoto.map((s, i) => (
               <button type="button" role="tab" class={`chip${i === 1 ? ' on' : ''}`} aria-selected={i === 1 ? 'true' : 'false'} data-nome={s.nome} data-selo={s.selo}>
-                <Image src={foto(s.foto)!} alt="" width={96} height={96} fit="cover" style={`object-position:${s.fotoPosicao ?? '50% 50%'}`} />
+                <Image src={recorte(s.foto)!} alt="" width={96} height={96} />
                 <span>{s.nome}</span>
               </button>
             ))}
@@ -121,11 +120,11 @@ const iconPlus = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v12M
         <p class="menu-sub">Todos os cookies a R$ 14. Passe pelos sabores e monte sua caixa.</p>
         <ul class="rows">
           {sabores.map((s) => {
-            const img = foto(s.foto);
+            const img = recorte(s.foto);
             return (
               <li class="row" data-nome={s.nome} id={`sabor-${slug(s.nome)}`} tabindex="-1">
                 <span class="row-thumb" aria-hidden="true">
-                  {img ? <Image src={img} alt="" width={120} height={120} fit="cover" style={`object-position:${s.fotoPosicao ?? '50% 50%'}`} /> : <span class="script">{s.nome.charAt(0)}</span>}
+                  {img ? <Image src={img} alt="" width={120} height={120} /> : <span class="script">{s.nome.charAt(0)}</span>}
                 </span>
                 <div class="row-text">
                   <h3><span class="script">{s.nome}</span>{s.selo && <span class="selo">{s.selo}</span>}</h3>
@@ -143,6 +142,12 @@ const iconPlus = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v12M
             );
           })}
         </ul>
+        <div class="deals">
+          <h3 class="script">Preços especiais</h3>
+          <ul>
+            {combos.map(([q, p]) => <li><span>{q} unidades</span><span>R$ {p}</span></li>)}
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -249,7 +254,7 @@ const iconPlus = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v12M
     const hw = $<SVGTextElement>('#hw-text');
     function writeName(nome: string) {
       hw.textContent = nome;
-      if (reduce) return;
+      if (reduce) { hw.classList.remove('writing'); return; }
       hw.classList.remove('writing');
       void (hw as unknown as HTMLElement).getBoundingClientRect();
       hw.classList.add('writing');
@@ -265,7 +270,7 @@ const iconPlus = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v12M
       const nome = chip.dataset.nome!;
       slides.forEach((s) => s.classList.toggle('on', s.dataset.nome === nome));
       chips.forEach((c) => { const on = c === chip; c.classList.toggle('on', on); c.setAttribute('aria-selected', String(on)); });
-      $('#stage-selo').textContent = chip.dataset.selo ?? '';
+      $('#stage-selo').textContent = chip.dataset.selo ? `· ${chip.dataset.selo}` : '';
       addBtn.dataset.nome = nome;
       $('#stage-add-label').textContent = `Adicionar`;
       addBtn.setAttribute('aria-label', `Adicionar ${nome} à caixa`);
@@ -288,7 +293,9 @@ const iconPlus = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v12M
       msSlides.forEach((s) => { const on = s.dataset.nome === nome; s.classList.toggle('on', on); has ||= on; });
       msEmpty.classList.toggle('on', !has);
       $('#ms-empty-name').textContent = nome;
-      $('#ms-caption').textContent = nome;
+      const cap = $('#ms-caption');
+      cap.textContent = nome;
+      cap.hidden = !has;
     }
     const rows = $$('.row');
     rows.forEach((r) => {
